@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cash Flow Health Check | Free Invoice Audit</title>
-  <meta name="description" content="Get a free manual audit of your overdue invoices. We'll analyze your unpaid invoices and give you a personalized recovery plan.">
+  <meta name="description" content="Get a free manual audit of your overdue invoices.">
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -39,94 +39,12 @@
   </script>
   
   <style>
-    :root {
-      --bg: #FAFBFC;
-      --fg: #1A202C;
-      --muted: #718096;
-      --accent: #1B4F72;
-      --accent-light: #2874A6;
-      --card: #FFFFFF;
-      --border: #E2E8F0;
-      --success: #27AE60;
-      --warm: #F5A623;
-    }
-    
-    * {
-      box-sizing: border-box;
-    }
-    
-    html {
-      scroll-behavior: smooth;
-    }
-    
-    @media (prefers-reduced-motion: reduce) {
-      html {
-        scroll-behavior: auto;
-      }
-      *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-      }
-    }
-    
     body {
       font-family: 'DM Sans', sans-serif;
-      background-color: var(--bg);
-      color: var(--fg);
-      overflow-x: hidden;
+      background-color: #FAFBFC;
+      color: #1A202C;
     }
     
-    /* Background Pattern */
-    .hero-bg {
-      background: 
-        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(27, 79, 114, 0.08) 0%, transparent 60%),
-        radial-gradient(ellipse 60% 40% at 80% 100%, rgba(245, 166, 35, 0.06) 0%, transparent 50%),
-        linear-gradient(180deg, #FAFBFC 0%, #F1F5F9 100%);
-    }
-    
-    /* Floating shapes */
-    .float-shape {
-      position: absolute;
-      border-radius: 50%;
-      filter: blur(60px);
-      opacity: 0.4;
-      pointer-events: none;
-    }
-    
-    .shape-1 {
-      width: 400px;
-      height: 400px;
-      background: rgba(27, 79, 114, 0.15);
-      top: -100px;
-      right: -100px;
-      animation: float 20s ease-in-out infinite;
-    }
-    
-    .shape-2 {
-      width: 300px;
-      height: 300px;
-      background: rgba(245, 166, 35, 0.12);
-      bottom: 10%;
-      left: -150px;
-      animation: float 25s ease-in-out infinite reverse;
-    }
-    
-    @keyframes float {
-      0%, 100% { transform: translate(0, 0) rotate(0deg); }
-      33% { transform: translate(30px, -30px) rotate(5deg); }
-      66% { transform: translate(-20px, 20px) rotate(-5deg); }
-    }
-    
-    /* Grid pattern overlay */
-    .grid-pattern {
-      background-image: 
-        linear-gradient(rgba(27, 79, 114, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(27, 79, 114, 0.03) 1px, transparent 1px);
-      background-size: 60px 60px;
-    }
-    
-    /* Typography */
     .headline {
       font-family: 'Space Grotesk', sans-serif;
       font-weight: 700;
@@ -134,35 +52,26 @@
       letter-spacing: -0.02em;
     }
     
-    /* Button styles */
+    /* Simple Animations */
+    .fade-in {
+      animation: fadeIn 0.8s ease-out forwards;
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
     .btn-primary {
-      background: linear-gradient(135deg, var(--accent) 0%, var(--accent-light) 100%);
+      background: linear-gradient(135deg, #1B4F72 0%, #2874A6 100%);
       color: white;
       padding: 16px 32px;
       border-radius: 12px;
       font-weight: 600;
-      font-size: 1rem;
       border: none;
       cursor: pointer;
-      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.3s ease;
       box-shadow: 0 4px 14px rgba(27, 79, 114, 0.25);
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .btn-primary::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
-      transition: left 0.5s;
-    }
-    
-    .btn-primary:hover::before {
-      left: 100%;
     }
     
     .btn-primary:hover {
@@ -170,150 +79,59 @@
       box-shadow: 0 8px 25px rgba(27, 79, 114, 0.35);
     }
     
-    .btn-primary:focus-visible {
-      outline: 3px solid var(--warm);
-      outline-offset: 2px;
-    }
-    
-    .btn-primary:active {
-      transform: translateY(0);
-    }
-    
-    /* Card styles */
     .card {
-      background: var(--card);
-      border: 1px solid var(--border);
+      background: white;
+      border: 1px solid #E2E8F0;
       border-radius: 16px;
       padding: 32px;
       transition: all 0.3s ease;
     }
     
     .card:hover {
-      border-color: rgba(27, 79, 114, 0.2);
       box-shadow: 0 20px 40px rgba(27, 79, 114, 0.08);
     }
     
-    /* Icon container */
-    .icon-box {
-      width: 56px;
-      height: 56px;
-      border-radius: 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, rgba(27, 79, 114, 0.1) 0%, rgba(27, 79, 114, 0.05) 100%);
-      border: 1px solid rgba(27, 79, 114, 0.1);
+    .form-input {
+      width: 100%;
+      padding: 14px 18px;
+      border: 2px solid #E2E8F0;
+      border-radius: 10px;
+      font-size: 1rem;
+      transition: all 0.2s ease;
     }
     
-    /* Step number */
+    .form-input:focus {
+      outline: none;
+      border-color: #1B4F72;
+      box-shadow: 0 0 0 4px rgba(27, 79, 114, 0.1);
+    }
+    
+    .file-upload {
+      border: 2px dashed #E2E8F0;
+      border-radius: 12px;
+      padding: 32px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    .file-upload:hover { border-color: #1B4F72; }
+    .file-upload.has-file { border-color: #27AE60; background: rgba(39, 174, 96, 0.05); }
+    
     .step-number {
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      background: var(--accent);
+      background: #1B4F72;
       color: white;
       font-family: 'Space Grotesk', sans-serif;
       font-weight: 700;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.125rem;
       flex-shrink: 0;
     }
     
-    /* Form styles */
-    .form-input {
-      width: 100%;
-      padding: 14px 18px;
-      border: 2px solid var(--border);
-      border-radius: 10px;
-      font-size: 1rem;
-      font-family: 'DM Sans', sans-serif;
-      transition: all 0.2s ease;
-      background: var(--card);
-    }
-    
-    .form-input:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 4px rgba(27, 79, 114, 0.1);
-    }
-    
-    .form-input::placeholder {
-      color: var(--muted);
-    }
-    
-    /* File upload */
-    .file-upload {
-      border: 2px dashed var(--border);
-      border-radius: 12px;
-      padding: 32px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      background: rgba(27, 79, 114, 0.02);
-    }
-    
-    .file-upload:hover {
-      border-color: var(--accent);
-      background: rgba(27, 79, 114, 0.04);
-    }
-    
-    .file-upload.dragover {
-      border-color: var(--accent);
-      background: rgba(27, 79, 114, 0.08);
-    }
-    
-    .file-upload.has-file {
-      border-color: var(--success);
-      background: rgba(39, 174, 96, 0.05);
-    }
-    
-    /* Scroll reveal animations */
-    .reveal {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    
-    .reveal-delay-1 { transition-delay: 0.1s; }
-    .reveal-delay-2 { transition-delay: 0.2s; }
-    .reveal-delay-3 { transition-delay: 0.3s; }
-    
-    /* Success message */
-    .success-message {
-      background: linear-gradient(135deg, rgba(39, 174, 96, 0.1) 0%, rgba(39, 174, 96, 0.05) 100%);
-      border: 2px solid var(--success);
-      border-radius: 12px;
-      padding: 24px;
-      text-align: center;
-    }
-    
-    /* Checkmark animation */
-    .checkmark-circle {
-      width: 60px;
-      height: 60px;
-      border-radius: 50%;
-      background: var(--success);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 auto 16px;
-      animation: scaleIn 0.5s ease;
-    }
-    
-    @keyframes scaleIn {
-      0% { transform: scale(0); opacity: 0; }
-      50% { transform: scale(1.2); }
-      100% { transform: scale(1); opacity: 1; }
-    }
-    
-    /* List checkmark */
     .check-icon {
       width: 24px;
       height: 24px;
@@ -324,195 +142,109 @@
       justify-content: center;
       flex-shrink: 0;
     }
-    
-    /* Navbar */
-    .navbar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      z-index: 50;
-      padding: 16px 0;
-      transition: all 0.3s ease;
-    }
-    
-    .navbar.scrolled {
-      background: rgba(250, 251, 252, 0.95);
-      backdrop-filter: blur(10px);
-      box-shadow: 0 4px 20px rgba(27, 79, 114, 0.06);
-    }
-    
-    /* Focus visible */
-    a:focus-visible, button:focus-visible {
-      outline: 3px solid var(--accent);
-      outline-offset: 2px;
-    }
   </style>
 </head>
 <body>
+
   <!-- Navigation -->
-  <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
-    <div class="max-w-6xl mx-auto px-6 flex items-center justify-between">
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-100">
+    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
       <a href="#" class="font-display font-bold text-xl text-accent">CashFlow Check</a>
       <a href="#audit-form" class="text-sm font-medium text-muted hover:text-accent transition-colors">Get Free Audit</a>
     </div>
   </nav>
 
   <!-- Hero Section -->
-  <section class="hero-bg relative min-h-screen flex items-center pt-20 overflow-hidden">
-    <!-- Background shapes -->
-    <div class="float-shape shape-1"></div>
-    <div class="float-shape shape-2"></div>
-    
-    <div class="grid-pattern absolute inset-0 pointer-events-none"></div>
-    
-    <div class="relative z-10 max-w-6xl mx-auto px-6 py-20 lg:py-32">
-      <div class="max-w-3xl">
-        <!-- Badge -->
-        <div class="reveal inline-flex items-center gap-2 bg-white border border-border rounded-full px-4 py-2 mb-6 shadow-sm">
-          <span class="w-2 h-2 bg-success rounded-full animate-pulse"></span>
-          <span class="text-sm font-medium text-muted">Free for agencies and freelancers</span>
+  <section class="pt-32 pb-20 px-6" style="background: linear-gradient(180deg, #FAFBFC 0%, #F1F5F9 100%);">
+    <div class="max-w-6xl mx-auto">
+      <div class="max-w-3xl fade-in">
+        <div class="inline-flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-2 mb-6 shadow-sm">
+          <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+          <span class="text-sm font-medium text-gray-600">Free for agencies and freelancers</span>
         </div>
         
-        <!-- Headline -->
-        <h1 class="reveal reveal-delay-1 headline text-4xl md:text-5xl lg:text-6xl text-fg mb-6">
+        <h1 class="headline text-4xl md:text-5xl lg:text-6xl text-fg mb-6">
           Stop losing money to overdue invoices. Get your free Cash Flow Health Check.
         </h1>
         
-        <!-- Subheadline -->
-        <p class="reveal reveal-delay-2 text-lg md:text-xl text-muted leading-relaxed mb-10 max-w-2xl">
+        <p class="text-lg md:text-xl text-muted leading-relaxed mb-10 max-w-2xl">
           We'll analyze your unpaid invoices and give you a personalized recovery plan—email templates, aging breakdown, and a timeline to get paid.
         </p>
         
-        <!-- CTA Button -->
-        <div class="reveal reveal-delay-3">
-          <a href="#audit-form" class="btn-primary inline-flex items-center gap-3">
-            Request Free Audit
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M5 12h14M12 5l7 7-7 7"/>
-            </svg>
-          </a>
-        </div>
-        
-        <!-- Trust indicators -->
-        <div class="reveal reveal-delay-3 mt-12 flex flex-wrap items-center gap-6 text-sm text-muted">
-          <div class="flex items-center gap-2">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#27AE60" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-              <polyline points="22 4 12 14.01 9 11.01"/>
-            </svg>
-            <span>No payment required</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#27AE60" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-              <polyline points="22 4 12 14.01 9 11.01"/>
-            </svg>
-            <span>Results in 24 hours</span>
-          </div>
-          <div class="flex items-center gap-2">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#27AE60" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-              <polyline points="22 4 12 14.01 9 11.01"/>
-            </svg>
-            <span>100% confidential</span>
-          </div>
-        </div>
+        <a href="#audit-form" class="btn-primary inline-flex items-center gap-3">
+          Request Free Audit
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
       </div>
     </div>
   </section>
 
   <!-- Problem Section -->
-  <section class="py-20 lg:py-28 bg-white border-y border-border" id="problems">
+  <section class="py-20 bg-white border-y border-gray-100" id="problems">
     <div class="max-w-6xl mx-auto px-6">
       <div class="text-center mb-16">
-        <h2 class="reveal headline text-3xl md:text-4xl text-fg mb-4">
-          Sound familiar?
-        </h2>
-        <p class="reveal reveal-delay-1 text-muted text-lg max-w-2xl mx-auto">
-          These challenges cost agencies thousands every month
-        </p>
+        <h2 class="headline text-3xl md:text-4xl text-fg mb-4">Sound familiar?</h2>
+        <p class="text-muted text-lg">These challenges cost agencies thousands every month</p>
       </div>
       
       <div class="grid md:grid-cols-3 gap-8">
-        <!-- Problem 1 -->
-        <div class="reveal card group">
-          <div class="icon-box mb-6 group-hover:scale-110 transition-transform">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1B4F72" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"/>
-              <polyline points="12 6 12 12 16 14"/>
-            </svg>
+        <div class="card">
+          <div class="w-14 h-14 rounded-xl bg-blue-50 flex items-center justify-center mb-6">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1B4F72" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
           </div>
           <h3 class="font-display font-bold text-xl text-fg mb-3">Hours wasted chasing payments</h3>
-          <p class="text-muted leading-relaxed">Time spent following up on unpaid invoices is time taken away from serving clients and growing your business.</p>
+          <p class="text-gray-600">Time spent following up on unpaid invoices is time taken away from serving clients.</p>
         </div>
         
-        <!-- Problem 2 -->
-        <div class="reveal reveal-delay-1 card group">
-          <div class="icon-box mb-6 group-hover:scale-110 transition-transform">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1B4F72" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
-              <line x1="9" y1="10" x2="15" y2="10"/>
-            </svg>
+        <div class="card">
+          <div class="w-14 h-14 rounded-xl bg-blue-50 flex items-center justify-center mb-6">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1B4F72" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
           </div>
           <h3 class="font-display font-bold text-xl text-fg mb-3">Awkward follow-up emails</h3>
-          <p class="text-muted leading-relaxed">Struggling to find the right words to ask for payment without damaging client relationships or feeling pushy.</p>
+          <p class="text-gray-600">Struggling to find the right words to ask for payment without damaging relationships.</p>
         </div>
         
-        <!-- Problem 3 -->
-        <div class="reveal reveal-delay-2 card group">
-          <div class="icon-box mb-6 group-hover:scale-110 transition-transform">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1B4F72" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="12" y1="1" x2="12" y2="23"/>
-              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-            </svg>
+        <div class="card">
+          <div class="w-14 h-14 rounded-xl bg-blue-50 flex items-center justify-center mb-6">
+            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1B4F72" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
           </div>
           <h3 class="font-display font-bold text-xl text-fg mb-3">Cash flow suffering</h3>
-          <p class="text-muted leading-relaxed">Late payments create unpredictable revenue, making it hard to cover expenses, pay contractors, or invest in growth.</p>
+          <p class="text-gray-600">Late payments create unpredictable revenue, making it hard to cover expenses.</p>
         </div>
       </div>
     </div>
   </section>
 
   <!-- How It Works Section -->
-  <section class="py-20 lg:py-28 relative overflow-hidden">
-    <div class="float-shape shape-2" style="top: 50%; right: -100px;"></div>
-    
-    <div class="max-w-6xl mx-auto px-6 relative z-10">
+  <section class="py-20 px-6">
+    <div class="max-w-4xl mx-auto">
       <div class="text-center mb-16">
-        <h2 class="reveal headline text-3xl md:text-4xl text-fg mb-4">
-          How it works
-        </h2>
-        <p class="reveal reveal-delay-1 text-muted text-lg max-w-2xl mx-auto">
-          Three simple steps to recover your unpaid invoices
-        </p>
+        <h2 class="headline text-3xl md:text-4xl text-fg mb-4">How it works</h2>
+        <p class="text-muted text-lg">Three simple steps to recover your unpaid invoices</p>
       </div>
       
-      <div class="max-w-3xl mx-auto space-y-8">
-        <!-- Step 1 -->
-        <div class="reveal card flex gap-6 items-start">
+      <div class="space-y-8">
+        <div class="card flex gap-6 items-start">
           <div class="step-number">1</div>
           <div>
             <h3 class="font-display font-bold text-xl text-fg mb-2">Upload your overdue invoices</h3>
-            <p class="text-muted leading-relaxed">Export your unpaid invoices as a CSV file from Stripe, QuickBooks, FreshBooks, or any billing system. We accept .csv, .xlsx, and .xls formats.</p>
+            <p class="text-gray-600">Export your unpaid invoices as a CSV file from Stripe, QuickBooks, or any billing system.</p>
           </div>
         </div>
         
-        <!-- Step 2 -->
-        <div class="reveal reveal-delay-1 card flex gap-6 items-start">
+        <div class="card flex gap-6 items-start">
           <div class="step-number">2</div>
           <div>
             <h3 class="font-display font-bold text-xl text-fg mb-2">We manually analyze the data</h3>
-            <p class="text-muted leading-relaxed">Our team reviews each overdue invoice, identifying patterns, risk factors, and recovery opportunities specific to your situation.</p>
+            <p class="text-gray-600">Our team reviews each overdue invoice, identifying patterns and recovery opportunities.</p>
           </div>
         </div>
         
-        <!-- Step 3 -->
-        <div class="reveal reveal-delay-2 card flex gap-6 items-start">
+        <div class="card flex gap-6 items-start">
           <div class="step-number">3</div>
           <div>
             <h3 class="font-display font-bold text-xl text-fg mb-2">Receive your custom recovery plan</h3>
-            <p class="text-muted leading-relaxed">Get a detailed report with personalized email templates, prioritized action items, and a realistic timeline to recover your money.</p>
+            <p class="text-gray-600">Get a detailed report with email templates and a realistic timeline to recover your money.</p>
           </div>
         </div>
       </div>
@@ -520,406 +252,212 @@
   </section>
 
   <!-- What You Get Section -->
-  <section class="py-20 lg:py-28 bg-gradient-to-b from-white to-[#F8FAFC]">
-    <div class="max-w-6xl mx-auto px-6">
+  <section class="py-20 bg-gray-50 px-6">
+    <div class="max-w-6xl mx-auto">
       <div class="grid lg:grid-cols-2 gap-16 items-center">
         <div>
-          <h2 class="reveal headline text-3xl md:text-4xl text-fg mb-6">
-            What you get in your free audit
-          </h2>
-          <p class="reveal reveal-delay-1 text-muted text-lg mb-10 leading-relaxed">
-            A comprehensive analysis delivered to your inbox within 24 hours. No strings attached—just actionable insights to improve your cash flow.
-          </p>
+          <h2 class="headline text-3xl md:text-4xl text-fg mb-6">What you get in your free audit</h2>
+          <p class="text-muted text-lg mb-10">A comprehensive analysis delivered to your inbox within 24 hours.</p>
           
           <ul class="space-y-5">
-            <li class="reveal reveal-delay-1 flex items-start gap-4">
-              <div class="check-icon mt-0.5">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#27AE60" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"/>
-                </svg>
-              </div>
+            <li class="flex items-start gap-4">
+              <div class="check-icon mt-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#27AE60" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
               <div>
                 <strong class="text-fg font-semibold">Total overdue amount</strong>
-                <p class="text-muted text-sm mt-1">Clear breakdown of exactly how much you're owed</p>
+                <p class="text-gray-500 text-sm mt-1">Clear breakdown of exactly how much you're owed</p>
               </div>
             </li>
-            
-            <li class="reveal reveal-delay-2 flex items-start gap-4">
-              <div class="check-icon mt-0.5">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#27AE60" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"/>
-                </svg>
-              </div>
+            <li class="flex items-start gap-4">
+              <div class="check-icon mt-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#27AE60" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
               <div>
                 <strong class="text-fg font-semibold">Aging breakdown (30/60/90+ days)</strong>
-                <p class="text-muted text-sm mt-1">Understand which invoices need immediate attention</p>
+                <p class="text-gray-500 text-sm mt-1">Understand which invoices need immediate attention</p>
               </div>
             </li>
-            
-            <li class="reveal reveal-delay-3 flex items-start gap-4">
-              <div class="check-icon mt-0.5">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#27AE60" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"/>
-                </svg>
-              </div>
+            <li class="flex items-start gap-4">
+              <div class="check-icon mt-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#27AE60" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
               <div>
                 <strong class="text-fg font-semibold">Personalized email templates</strong>
-                <p class="text-muted text-sm mt-1">Professional, tactful messages ready to send</p>
+                <p class="text-gray-500 text-sm mt-1">Professional, tactful messages ready to send</p>
               </div>
             </li>
-            
-            <li class="reveal flex items-start gap-4" style="transition-delay: 0.4s;">
-              <div class="check-icon mt-0.5">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#27AE60" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="20 6 9 17 4 12"/>
-                </svg>
-              </div>
+            <li class="flex items-start gap-4">
+              <div class="check-icon mt-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#27AE60" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
               <div>
                 <strong class="text-fg font-semibold">Recovery timeline</strong>
-                <p class="text-muted text-sm mt-1">A realistic plan for when to expect payment</p>
+                <p class="text-gray-500 text-sm mt-1">A realistic plan for when to expect payment</p>
               </div>
             </li>
           </ul>
         </div>
         
-        <!-- Visual representation -->
-        <div class="reveal relative">
-          <div class="bg-white rounded-2xl shadow-xl border border-border p-8 relative z-10">
-            <!-- Sample report preview -->
-            <div class="flex items-center justify-between mb-6">
-              <span class="font-display font-bold text-lg text-fg">Cash Flow Report</span>
-              <span class="text-xs font-medium text-muted bg-gray-100 px-3 py-1 rounded-full">CONFIDENTIAL</span>
+        <!-- Visual Card -->
+        <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
+          <div class="flex items-center justify-between mb-6">
+            <span class="font-display font-bold text-lg text-fg">Cash Flow Report</span>
+            <span class="text-xs font-medium text-gray-400 bg-gray-100 px-3 py-1 rounded-full">CONFIDENTIAL</span>
+          </div>
+          <div class="space-y-4 mb-6">
+            <div class="flex justify-between items-center py-3 border-b border-gray-100">
+              <span class="text-gray-500">Total Overdue</span>
+              <span class="font-display font-bold text-2xl text-accent">$24,850</span>
             </div>
-            
-            <div class="space-y-4 mb-6">
-              <div class="flex justify-between items-center py-3 border-b border-border">
-                <span class="text-muted">Total Overdue</span>
-                <span class="font-display font-bold text-2xl text-accent">$24,850</span>
-              </div>
-              <div class="grid grid-cols-3 gap-4 text-center">
-                <div class="bg-gray-50 rounded-lg p-3">
-                  <span class="block text-xs text-muted mb-1">30 days</span>
-                  <span class="font-semibold text-fg">$8,200</span>
-                </div>
-                <div class="bg-gray-50 rounded-lg p-3">
-                  <span class="block text-xs text-muted mb-1">60 days</span>
-                  <span class="font-semibold text-fg">$12,150</span>
-                </div>
-                <div class="bg-gray-50 rounded-lg p-3">
-                  <span class="block text-xs text-muted mb-1">90+ days</span>
-                  <span class="font-semibold text-warm">$4,500</span>
-                </div>
-              </div>
-            </div>
-            
-            <div class="flex items-center gap-3 p-4 bg-green-50 rounded-lg border border-green-100">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#27AE60" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                <polyline points="22 4 12 14.01 9 11.01"/>
-              </svg>
-              <div>
-                <span class="block font-semibold text-success text-sm">Estimated Recovery</span>
-                <span class="block text-xs text-muted">$21,600 within 45 days</span>
-              </div>
+            <div class="grid grid-cols-3 gap-4 text-center">
+              <div class="bg-gray-50 rounded-lg p-3"><span class="block text-xs text-gray-500 mb-1">30 days</span><span class="font-semibold text-fg">$8,200</span></div>
+              <div class="bg-gray-50 rounded-lg p-3"><span class="block text-xs text-gray-500 mb-1">60 days</span><span class="font-semibold text-fg">$12,150</span></div>
+              <div class="bg-gray-50 rounded-lg p-3"><span class="block text-xs text-gray-500 mb-1">90+ days</span><span class="font-semibold text-warm">$4,500</span></div>
             </div>
           </div>
-          
-          <!-- Decorative elements -->
-          <div class="absolute -bottom-4 -right-4 w-full h-full bg-accent/5 rounded-2xl -z-10"></div>
-          <div class="absolute -top-4 -left-4 w-24 h-24 bg-warm/10 rounded-full blur-2xl -z-10"></div>
+          <div class="flex items-center gap-3 p-4 bg-green-50 rounded-lg border border-green-100">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#27AE60" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+            <div><span class="block font-semibold text-green-600 text-sm">Estimated Recovery</span><span class="block text-xs text-gray-500">$21,600 within 45 days</span></div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <!-- Form Section -->
-  <section class="py-20 lg:py-28 relative overflow-hidden" id="audit-form">
-    <div class="float-shape shape-1" style="top: 20%; left: -150px;"></div>
-    
-    <div class="max-w-2xl mx-auto px-6 relative z-10">
+  <section class="py-20 px-6" id="audit-form">
+    <div class="max-w-2xl mx-auto">
       <div class="text-center mb-12">
-        <h2 class="reveal headline text-3xl md:text-4xl text-fg mb-4">
-          Request your free audit
-        </h2>
-        <p class="reveal reveal-delay-1 text-muted text-lg">
-          Fill out the form below and we'll send your personalized recovery plan within 24 hours.
-        </p>
+        <h2 class="headline text-3xl md:text-4xl text-fg mb-4">Request your free audit</h2>
+        <p class="text-muted text-lg">Fill out the form below. We'll send your plan within 24 hours.</p>
       </div>
       
-      <div class="reveal reveal-delay-2 card shadow-lg">
-        <form 
-  id="auditForm" 
-  action="https://formsubmit.co/abderezakbedru99@gmail.com" 
-  method="POST" 
-  enctype="multipart/form-data"
->
-  <!-- FormSubmit Hidden Configuration -->
-  <input type="hidden" name="_subject" value="New Cash Flow Audit Request!">
-  <input type="hidden" name="_captcha" value="false">
-  <input type="hidden" name="_template" value="table">
-  <input type="hidden" name="_next" value="https://your-site.netlify.app/#audit-form">
-  
-  <!-- Rest of your form fields stay exactly the same -->
-  <div class="space-y-6">
-    <div>
-      <label for="fullName" class="block text-sm font-medium text-fg mb-2">Full Name</label>
-      <input type="text" id="fullName" name="fullName" required class="form-input" placeholder="John Smith">
-    </div>
-    
-    <div>
-      <label for="email" class="block text-sm font-medium text-fg mb-2">Email Address</label>
-      <input type="email" id="email" name="email" required class="form-input" placeholder="john@youragency.com">
-    </div>
-    
-    <div>
-      <label for="businessName" class="block text-sm font-medium text-fg mb-2">Agency/Business Name</label>
-      <input type="text" id="businessName" name="businessName" required class="form-input" placeholder="Your Agency LLC">
-    </div>
-    
-    <!-- File Upload Section (Keep your existing file upload code here) -->
-    <!-- ... -->
-    
-    <button type="submit" class="btn-primary w-full" id="submitBtn">
-      Request Free Audit
-    </button>
-  </div>
-</form>
+      <div class="card shadow-lg">
         
-        <!-- Success Message (hidden by default) -->
-        <div id="successMessage" class="hidden">
-          <div class="success-message">
-            <div class="checkmark-circle">
-              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="20 6 9 17 4 12"/>
-              </svg>
+        <!-- FORM START -->
+        <!-- ACTION: Replace your-email@example.com below with your real email -->
+        <form id="auditForm" action="https://formsubmit.co/abderezakbedru99@gmail.com" method="POST" enctype="multipart/form-data">
+          <input type="hidden" name="_subject" value="New Cash Flow Audit Request!">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="table">
+          
+          <div class="space-y-6">
+            <div>
+              <label for="fullName" class="block text-sm font-medium text-fg mb-2">Full Name</label>
+              <input type="text" id="fullName" name="fullName" required class="form-input" placeholder="John Smith">
             </div>
-            <h3 class="font-display font-bold text-xl text-fg mb-2">Thanks for your request</h3>
-            <p class="text-muted">We'll email your personalized recovery plan within 24 hours.</p>
+            
+            <div>
+              <label for="email" class="block text-sm font-medium text-fg mb-2">Email Address</label>
+              <input type="email" id="email" name="email" required class="form-input" placeholder="john@youragency.com">
+            </div>
+            
+            <div>
+              <label for="businessName" class="block text-sm font-medium text-fg mb-2">Agency/Business Name</label>
+              <input type="text" id="businessName" name="businessName" required class="form-input" placeholder="Your Agency LLC">
+            </div>
+            
+            <div>
+              <label class="block text-sm font-medium text-fg mb-2">Upload Overdue Invoices</label>
+              <div class="file-upload" id="dropZone">
+                <input type="file" id="invoiceFile" name="attachment" accept=".csv,.xlsx,.xls" required class="hidden">
+                <div id="uploadContent">
+                  <svg class="mx-auto mb-4" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#718096" stroke-width="1.5">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
+                  </svg>
+                  <p class="text-gray-500 mb-2">Drag and drop your file here, or <span class="text-accent font-medium">browse</span></p>
+                  <p class="text-sm text-gray-400">Accepts .csv, .xlsx, .xls (Max 10MB)</p>
+                </div>
+                <div id="fileSelected" class="hidden">
+                  <svg class="mx-auto mb-4" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#27AE60" stroke-width="1.5">
+                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
+                  </svg>
+                  <p class="font-medium text-green-600" id="fileName">filename.csv</p>
+                  <p class="text-sm text-gray-400 mt-1">Click to change file</p>
+                </div>
+              </div>
+            </div>
+            
+            <button type="submit" class="btn-primary w-full" id="submitBtn">Request Free Audit</button>
           </div>
+        </form>
+        <!-- FORM END -->
+
+        <!-- Success Message -->
+        <div id="successMessage" class="hidden text-center py-8">
+          <div class="w-16 h-16 rounded-full bg-green-500 flex items-center justify-center mx-auto mb-4">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <h3 class="font-display font-bold text-xl text-fg mb-2">Thanks for your request</h3>
+          <p class="text-gray-500">We'll email your personalized recovery plan within 24 hours.</p>
         </div>
+        
       </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer class="py-12 border-t border-border bg-white">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-        <div class="flex items-center gap-2">
-          <span class="font-display font-bold text-lg text-accent">CashFlow Check</span>
-        </div>
-        
-        <p class="text-sm text-muted">
-          &copy; <span id="currentYear"></span> CashFlow Check. All rights reserved.
-        </p>
-        
-        <div class="flex items-center gap-6">
-          <a href="mailto:hello@cashflowcheck.com" class="text-sm text-muted hover:text-accent transition-colors">
-            hello@cashflowcheck.com
-          </a>
-          <a 
-            href="#" 
-            class="text-muted hover:text-accent transition-colors"
-            aria-label="LinkedIn"
-          >
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-            </svg>
-          </a>
-        </div>
-      </div>
+  <footer class="py-12 border-t border-gray-100 bg-white">
+    <div class="max-w-6xl mx-auto px-6 text-center">
+      <span class="font-display font-bold text-lg text-accent">CashFlow Check</span>
+      <p class="text-sm text-gray-400 mt-2">&copy; <span id="year"></span> CashFlow Check. All rights reserved.</p>
     </div>
   </footer>
 
   <script>
-    // Initialize variables first
-    const navbar = document.getElementById('navbar');
+    // Set year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // File Upload Logic
     const dropZone = document.getElementById('dropZone');
     const fileInput = document.getElementById('invoiceFile');
     const uploadContent = document.getElementById('uploadContent');
     const fileSelected = document.getElementById('fileSelected');
     const fileName = document.getElementById('fileName');
-    const auditForm = document.getElementById('auditForm');
-    const successMessage = document.getElementById('successMessage');
-    const submitBtn = document.getElementById('submitBtn');
-    const currentYearEl = document.getElementById('currentYear');
-    
-    // Set current year
-    currentYearEl.textContent = new Date().getFullYear();
-    
-    // Navbar scroll effect
-    function handleScroll() {
-      if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
-      } else {
-        navbar.classList.remove('scrolled');
-      }
-    }
-    
-    window.addEventListener('scroll', handleScroll);
-    
-    // Scroll reveal animation
-    function initScrollReveal() {
-      const reveals = document.querySelectorAll('.reveal');
-      
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-          }
-        });
-      }, {
-        threshold: 0.1,
-        rootMargin: '0px 0px -50px 0px'
-      });
-      
-      reveals.forEach(el => observer.observe(el));
-    }
-    
-    // File upload handling
-    function handleFileSelect(file) {
-      if (file) {
-        const validTypes = ['.csv', '.xlsx', '.xls'];
-        const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
-        
-        if (!validTypes.includes(fileExtension)) {
-          alert('Please upload a .csv, .xlsx, or .xls file.');
-          return;
-        }
-        
-        if (file.size > 10 * 1024 * 1024) {
-          alert('File size must be less than 10MB.');
-          return;
-        }
-        
-        fileInput.files = createFileList(file);
+
+    dropZone.addEventListener('click', () => fileInput.click());
+
+    fileInput.addEventListener('change', (e) => {
+      if (e.target.files.length > 0) {
+        const file = e.target.files[0];
         fileName.textContent = file.name;
         uploadContent.classList.add('hidden');
         fileSelected.classList.remove('hidden');
         dropZone.classList.add('has-file');
       }
-    }
-    
-    function createFileList(file) {
-      const dt = new DataTransfer();
-      dt.items.add(file);
-      return dt.files;
-    }
-    
-    // Click to upload
-    dropZone.addEventListener('click', () => fileInput.click());
-    
-    // Keyboard accessibility
-    dropZone.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        fileInput.click();
-      }
     });
-    
-    // File input change
-    fileInput.addEventListener('change', (e) => {
-      if (e.target.files.length > 0) {
-        handleFileSelect(e.target.files[0]);
-      }
-    });
-    
-    // Drag and drop
-    dropZone.addEventListener('dragover', (e) => {
+
+    // Form Submission
+    const form = document.getElementById('auditForm');
+    const btn = document.getElementById('submitBtn');
+    const successMsg = document.getElementById('successMessage');
+
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      dropZone.classList.add('dragover');
-    });
-    
-    dropZone.addEventListener('dragleave', (e) => {
-      e.preventDefault();
-      dropZone.classList.remove('dragover');
-    });
-    
-    dropZone.addEventListener('drop', (e) => {
-      e.preventDefault();
-      dropZone.classList.remove('dragover');
       
-      if (e.dataTransfer.files.length > 0) {
-        handleFileSelect(e.dataTransfer.files[0]);
+      if (!fileInput.files.length) {
+        alert('Please upload a file.');
+        return;
       }
-    });
-    
-    // Form submission
-    // 
-    // FORMSPREE SETUP INSTRUCTIONS:
-    // 1. Go to https://formspree.io and create a free account
-    // 2. Create a new form and copy your form endpoint
-    // 3. Replace 'YOUR_FORMSPREE_ENDPOINT' below with your endpoint
-    //    Example: 'https://formspree.io/f/xyzabcde'
-    // 4. Formspree will handle file uploads up to 10MB on free plans
-    //
-    const FORMSPREE_ENDPOINT = 'https://formsubmit.co/abderezakbedru99@gmail.com';
-    
-    auditForm.addEventListener('submit', async (e) => {
-  e.preventDefault();
-  
-  // Validate file
-  if (!fileInput.files || fileInput.files.length === 0) {
-    alert('Please upload your overdue invoices file.');
-    return;
-  }
-  
-  // Update button state
-  submitBtn.disabled = true;
-  submitBtn.innerHTML = `
-    <svg class="animate-spin inline mr-2" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="12" cy="12" r="10" stroke-opacity="0.25"/>
-      <path d="M12 2a10 10 0 0 1 10 10" stroke-opacity="1"/>
-    </svg>
-    Submitting...
-  `;
-  
-  try {
-    const formData = new FormData(auditForm);
-    
-    // Submit to FormSubmit
-    const response = await fetch(auditForm.action, {
-      method: 'POST',
-      body: formData,
-      headers: {
-        'Accept': 'application/json'
-      }
-    });
-    
-    if (response.ok) {
-      // Show success message
-      auditForm.classList.add('hidden');
-      successMessage.classList.remove('hidden');
-      successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    } else {
-      throw new Error('Form submission failed');
-    }
-  } catch (error) {
-    console.error('Error:', error);
-    alert('There was an error submitting your request. Please try again.');
-    submitBtn.disabled = false;
-    submitBtn.innerHTML = 'Request Free Audit';
-  }
-});
-    
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-      anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-          target.scrollIntoView({
-            behavior: 'smooth',
-            block: 'start'
-          });
+
+      btn.disabled = true;
+      btn.innerHTML = 'Submitting...';
+
+      const data = new FormData(form);
+      
+      try {
+        const response = await fetch(form.action, {
+          method: 'POST',
+          body: data,
+          headers: { 'Accept': 'application/json' }
+        });
+
+        if (response.ok) {
+          form.classList.add('hidden');
+          successMsg.classList.remove('hidden');
+        } else {
+          alert('Error submitting form. Please check your email settings.');
+          btn.disabled = false;
+          btn.innerHTML = 'Request Free Audit';
         }
-      });
-    });
-    
-    // Initialize on page load
-    document.addEventListener('DOMContentLoaded', () => {
-      initScrollReveal();
-      handleScroll();
+      } catch (error) {
+        alert('Error submitting form.');
+        btn.disabled = false;
+        btn.innerHTML = 'Request Free Audit';
+      }
     });
   </script>
 </body>
