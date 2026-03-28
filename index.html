@@ -647,98 +647,43 @@
       </div>
       
       <div class="reveal reveal-delay-2 card shadow-lg">
-        <form id="auditForm" enctype="multipart/form-data">
-          <div class="space-y-6">
-            <!-- Full Name -->
-            <div>
-              <label for="fullName" class="block text-sm font-medium text-fg mb-2">Full Name</label>
-              <input 
-                type="text" 
-                id="fullName" 
-                name="fullName" 
-                required 
-                class="form-input" 
-                placeholder="John Smith"
-                autocomplete="name"
-              >
-            </div>
-            
-            <!-- Email -->
-            <div>
-              <label for="email" class="block text-sm font-medium text-fg mb-2">Email Address</label>
-              <input 
-                type="email" 
-                id="email" 
-                name="email" 
-                required 
-                class="form-input" 
-                placeholder="john@youragency.com"
-                autocomplete="email"
-              >
-            </div>
-            
-            <!-- Business Name -->
-            <div>
-              <label for="businessName" class="block text-sm font-medium text-fg mb-2">Agency/Business Name</label>
-              <input 
-                type="text" 
-                id="businessName" 
-                name="businessName" 
-                required 
-                class="form-input" 
-                placeholder="Your Agency LLC"
-                autocomplete="organization"
-              >
-            </div>
-            
-            <!-- File Upload -->
-            <div>
-              <label class="block text-sm font-medium text-fg mb-2">Upload Overdue Invoices</label>
-              <div 
-                class="file-upload" 
-                id="dropZone"
-                role="button"
-                tabindex="0"
-                aria-label="Upload invoice file"
-              >
-                <input 
-                  type="file" 
-                  id="invoiceFile" 
-                  name="invoiceFile" 
-                  accept=".csv,.xlsx,.xls" 
-                  required 
-                  class="hidden"
-                >
-                <div id="uploadContent">
-                  <svg class="mx-auto mb-4" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#718096" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-                    <polyline points="17 8 12 3 7 8"/>
-                    <line x1="12" y1="3" x2="12" y2="15"/>
-                  </svg>
-                  <p class="text-muted mb-2">Drag and drop your file here, or <span class="text-accent font-medium">browse</span></p>
-                  <p class="text-sm text-muted">Accepts .csv, .xlsx, .xls (Max 10MB)</p>
-                </div>
-                <div id="fileSelected" class="hidden">
-                  <svg class="mx-auto mb-4" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#27AE60" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
-                    <polyline points="22 4 12 14.01 9 11.01"/>
-                  </svg>
-                  <p class="font-medium text-success" id="fileName">filename.csv</p>
-                  <p class="text-sm text-muted mt-1">Click to change file</p>
-                </div>
-              </div>
-            </div>
-            
-            <!-- Submit Button -->
-            <button type="submit" class="btn-primary w-full" id="submitBtn">
-              Request Free Audit
-            </button>
-            
-            <p class="text-center text-sm text-muted">
-              Your data is 100% confidential and will never be shared.
-            </p>
-          </div>
-        </form>
+        <form 
+  id="auditForm" 
+  action="https://formsubmit.co/abderezakbedru99@gmail.com" 
+  method="POST" 
+  enctype="multipart/form-data"
+>
+  <!-- FormSubmit Hidden Configuration -->
+  <input type="hidden" name="_subject" value="New Cash Flow Audit Request!">
+  <input type="hidden" name="_captcha" value="false">
+  <input type="hidden" name="_template" value="table">
+  <input type="hidden" name="_next" value="https://your-site.netlify.app/#audit-form">
+  
+  <!-- Rest of your form fields stay exactly the same -->
+  <div class="space-y-6">
+    <div>
+      <label for="fullName" class="block text-sm font-medium text-fg mb-2">Full Name</label>
+      <input type="text" id="fullName" name="fullName" required class="form-input" placeholder="John Smith">
+    </div>
+    
+    <div>
+      <label for="email" class="block text-sm font-medium text-fg mb-2">Email Address</label>
+      <input type="email" id="email" name="email" required class="form-input" placeholder="john@youragency.com">
+    </div>
+    
+    <div>
+      <label for="businessName" class="block text-sm font-medium text-fg mb-2">Agency/Business Name</label>
+      <input type="text" id="businessName" name="businessName" required class="form-input" placeholder="Your Agency LLC">
+    </div>
+    
+    <!-- File Upload Section (Keep your existing file upload code here) -->
+    <!-- ... -->
+    
+    <button type="submit" class="btn-primary w-full" id="submitBtn">
+      Request Free Audit
+    </button>
+  </div>
+</form>
         
         <!-- Success Message (hidden by default) -->
         <div id="successMessage" class="hidden">
@@ -911,54 +856,51 @@
     const FORMSPREE_ENDPOINT = 'https://formsubmit.co/abderezakbedru99@gmail.com';
     
     auditForm.addEventListener('submit', async (e) => {
-      e.preventDefault();
-      
-      // Validate file
-      if (!fileInput.files || fileInput.files.length === 0) {
-        alert('Please upload your overdue invoices file.');
-        return;
-      }
-      
-      // Update button state
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = `
-        <svg class="animate-spin mr-2" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="12" r="10" stroke-opacity="0.25"/>
-          <path d="M12 2a10 10 0 0 1 10 10" stroke-opacity="1"/>
-        </svg>
-        Submitting...
-      `;
-      
-      try {
-        const formData = new FormData(auditForm);
-        
-        const response = await fetch(FORMSPREE_ENDPOINT, {
-          method: 'POST',
-          body: formData,
-          headers: {
-            'Accept': 'application/json'
-          }
-        });
-        
-        if (response.ok) {
-          // Show success message
-          auditForm.classList.add('hidden');
-          successMessage.classList.remove('hidden');
-          
-          // Scroll to success message
-          successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        } else {
-          throw new Error('Form submission failed');
-        }
-      } catch (error) {
-        console.error('Error:', error);
-        alert('There was an error submitting your request. Please try again.');
-        
-        // Reset button
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = 'Request Free Audit';
+  e.preventDefault();
+  
+  // Validate file
+  if (!fileInput.files || fileInput.files.length === 0) {
+    alert('Please upload your overdue invoices file.');
+    return;
+  }
+  
+  // Update button state
+  submitBtn.disabled = true;
+  submitBtn.innerHTML = `
+    <svg class="animate-spin inline mr-2" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <circle cx="12" cy="12" r="10" stroke-opacity="0.25"/>
+      <path d="M12 2a10 10 0 0 1 10 10" stroke-opacity="1"/>
+    </svg>
+    Submitting...
+  `;
+  
+  try {
+    const formData = new FormData(auditForm);
+    
+    // Submit to FormSubmit
+    const response = await fetch(auditForm.action, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Accept': 'application/json'
       }
     });
+    
+    if (response.ok) {
+      // Show success message
+      auditForm.classList.add('hidden');
+      successMessage.classList.remove('hidden');
+      successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    } else {
+      throw new Error('Form submission failed');
+    }
+  } catch (error) {
+    console.error('Error:', error);
+    alert('There was an error submitting your request. Please try again.');
+    submitBtn.disabled = false;
+    submitBtn.innerHTML = 'Request Free Audit';
+  }
+});
     
     // Smooth scroll for anchor links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
