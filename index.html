@@ -3,8 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cash Flow Health Check | Free Invoice Audit</title>
+  <title>CashFlow Catalyst | Free Invoice Audit</title>
   <meta name="description" content="Get a free manual audit of your overdue invoices.">
+  
+  <!-- PROFESSIONAL SVG FAVICON - Letter C with Upward Arrow -->
+ <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%231B4F72'/%3E%3Cstop offset='100%25' style='stop-color:%232874A6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='6' fill='url(%23grad)'/%3E%3Cpath d='M8 22 L12 16 L16 18 L24 8' stroke='%2327AE60' stroke-width='2.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='24' cy='8' r='2' fill='%2327AE60'/%3E%3Ctext x='16' y='23' font-family='Arial,sans-serif' font-size='16' font-weight='bold' fill='white' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
+  <!-- Fallback for older browsers -->
+  <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAA7AAAAOwBeShxvQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAGfSURBVFiF7ZY9TsNAEIW/WRsQJShFOjpuwBUoOAI3oOEK3IErcAM6CLkADsKFcCjoCNyFeAAX4go6BTf+ChUlpvjObGR7b2Z3F1nS2LB/Zt7MzvPO3Bd5wDdYz78qgAvwCrS8PwHsAu3AGlgD65vKAiA9gAEZ4DwNYtwIksF8pAKsE8LiKAJgmxNcA6hJWkIEEXgPIW8QVJODQE1jVCMipI7BOQM8jq8AGnFpE1gHYEpAzJOcA2DqCGwCrj2AJgJyhvAawdYm2AHyNiWwC0O4KbQC4PYIbQK4OYIbQK4IYIbQK4IYIbQK4IYIbQJ4LYIbQJ4LYIbQKYA2rOAG0CrPu+E0B7BxoBsK3negKYDsC2pusJYDoA20qumwBm+QDwXt7nBLD9fHcH4MG49wRw+A5QBVhL0H8G0CcAN+D8agK4CPAsArwE3J8E8ATwCIJLAH0G8FQA7xLAU0H8fP5t/Ndh/kE+b/zPYID9I/hv/HaB/wZPhvunM8C+wX3jDfYPgxHgvoU9CfA9ij8LYM8C3IP44wD2JMBd+Pa3N8E+7L+BveFQvxsGdF2M6AAAAABJRU5ErkJggg==">
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -52,7 +57,6 @@
       letter-spacing: -0.02em;
     }
     
-    /* Simple Animations */
     .fade-in {
       animation: fadeIn 0.8s ease-out forwards;
     }
@@ -77,6 +81,12 @@
     .btn-primary:hover {
       transform: translateY(-2px);
       box-shadow: 0 8px 25px rgba(27, 79, 114, 0.35);
+    }
+    
+    .btn-primary:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
     }
     
     .card {
@@ -115,14 +125,14 @@
       transition: all 0.3s ease;
     }
     
-    .file-upload:hover { border-color: #1B4F72; }
+    .file-upload:hover { border-color: #1B4F72; background: rgba(27, 79, 114, 0.02); }
     .file-upload.has-file { border-color: #27AE60; background: rgba(39, 174, 96, 0.05); }
     
     .step-number {
       width: 40px;
       height: 40px;
       border-radius: 50%;
-      background: #1B4F72;
+      background: linear-gradient(135deg, #1B4F72 0%, #2874A6 100%);
       color: white;
       font-family: 'Space Grotesk', sans-serif;
       font-weight: 700;
@@ -142,6 +152,21 @@
       justify-content: center;
       flex-shrink: 0;
     }
+    
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #1B4F72 0%, #2874A6 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    @media (prefers-reduced-motion: reduce) {
+      .fade-in { animation: none; opacity: 1; transform: none; }
+      .btn-primary { transition: none; }
+    }
   </style>
 </head>
 <body>
@@ -149,7 +174,17 @@
   <!-- Navigation -->
   <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-100">
     <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="#" class="font-display font-bold text-xl text-accent">CashFlow Check</a>
+      <a href="#" class="font-display font-bold text-xl text-accent flex items-center gap-3">
+        <!-- Logo Icon -->
+        <div class="logo-icon">
+          <svg width="20" height="20" viewBox="0 0 32 32" fill="none">
+            <path d="M6 24 L10 18 L14 20 L22 10" stroke="#27AE60" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="22" cy="10" r="2" fill="#27AE60"/>
+            <text x="16" y="23" font-family="Arial" font-size="16" font-weight="bold" fill="white" text-anchor="middle">C</text>
+          </svg>
+        </div>
+        <span>CashFlow Catalyst</span>
+      </a>
       <a href="#audit-form" class="text-sm font-medium text-muted hover:text-accent transition-colors">Get Free Audit</a>
     </div>
   </nav>
@@ -159,7 +194,7 @@
     <div class="max-w-6xl mx-auto">
       <div class="max-w-3xl fade-in">
         <div class="inline-flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-2 mb-6 shadow-sm">
-          <span class="w-2 h-2 bg-green-500 rounded-full"></span>
+          <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
           <span class="text-sm font-medium text-gray-600">Free for agencies and freelancers</span>
         </div>
         
@@ -328,7 +363,7 @@
       <div class="card shadow-lg">
         
         <!-- FORM START -->
-        <!-- ACTION: Replace your-email@example.com below with your real email -->
+        <!-- IMPORTANT: Replace your-email@example.com with your real email address -->
         <form id="auditForm" action="https://formsubmit.co/e3124be8fb70355005934709a3b4aa2b" method="POST" enctype="multipart/form-data">
           <input type="hidden" name="_subject" value="New Cash Flow Audit Request!">
           <input type="hidden" name="_captcha" value="false">
@@ -391,9 +426,20 @@
 
   <!-- Footer -->
   <footer class="py-12 border-t border-gray-100 bg-white">
-    <div class="max-w-6xl mx-auto px-6 text-center">
-      <span class="font-display font-bold text-lg text-accent">CashFlow Check</span>
-      <p class="text-sm text-gray-400 mt-2">&copy; <span id="year"></span> CashFlow Check. All rights reserved.</p>
+    <div class="max-w-6xl mx-auto px-6">
+      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
+        <a href="#" class="font-display font-bold text-lg text-accent flex items-center gap-3">
+          <div class="logo-icon">
+            <svg width="20" height="20" viewBox="0 0 32 32" fill="none">
+              <path d="M6 24 L10 18 L14 20 L22 10" stroke="#27AE60" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+              <circle cx="22" cy="10" r="2" fill="#27AE60"/>
+              <text x="16" y="23" font-family="Arial" font-size="16" font-weight="bold" fill="white" text-anchor="middle">C</text>
+            </svg>
+          </div>
+          <span>CashFlow Catalyst</span>
+        </a>
+        <p class="text-sm text-gray-400">&copy; <span id="year"></span> CashFlow Catalyst. All rights reserved.</p>
+      </div>
     </div>
   </footer>
 
