@@ -1,510 +1,457 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CashFlow Catalyst | Free Invoice Audit</title>
-  <meta name="description" content="Get a free manual audit of your overdue invoices.">
-  
-  <!-- PROFESSIONAL SVG FAVICON - Letter C with Upward Arrow -->
- <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='grad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' style='stop-color:%231B4F72'/%3E%3Cstop offset='100%25' style='stop-color:%232874A6'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='6' fill='url(%23grad)'/%3E%3Cpath d='M8 22 L12 16 L16 18 L24 8' stroke='%2327AE60' stroke-width='2.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3Ccircle cx='24' cy='8' r='2' fill='%2327AE60'/%3E%3Ctext x='16' y='23' font-family='Arial,sans-serif' font-size='16' font-weight='bold' fill='white' text-anchor='middle'%3EC%3C/text%3E%3C/svg%3E">
-  <!-- Fallback for older browsers -->
-  <link rel="icon" type="image/png" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAA7AAAAOwBeShxvQAAABl0RVh0U29mdHdhcmUAd3d3Lmlua3NjYXBlLm9yZ5vuPBoAAAGfSURBVFiF7ZY9TsNAEIW/WRsQJShFOjpuwBUoOAI3oOEK3IErcAM6CLkADsKFcCjoCNyFeAAX4go6BTf+ChUlpvjObGR7b2Z3F1nS2LB/Zt7MzvPO3Bd5wDdYz78qgAvwCrS8PwHsAu3AGlgD65vKAiA9gAEZ4DwNYtwIksF8pAKsE8LiKAJgmxNcA6hJWkIEEXgPIW8QVJODQE1jVCMipI7BOQM8jq8AGnFpE1gHYEpAzJOcA2DqCGwCrj2AJgJyhvAawdYm2AHyNiWwC0O4KbQC4PYIbQK4OYIbQK4IYIbQK4IYIbQK4IYIbQJ4LYIbQJ4LYIbQKYA2rOAG0CrPu+E0B7BxoBsK3negKYDsC2pusJYDoA20qumwBm+QDwXt7nBLD9fHcH4MG49wRw+A5QBVhL0H8G0CcAN+D8agK4CPAsArwE3J8E8ATwCIJLAH0G8FQA7xLAU0H8fP5t/Ndh/kE+b/zPYID9I/hv/HaB/wZPhvunM8C+wX3jDfYPgxHgvoU9CfA9ij8LYM8C3IP44wD2JMBd+Pa3N8E+7L+BveFQvxsGdF2M6AAAAABJRU5ErkJggg==">
-  
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
-  
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            bg: '#FAFBFC',
-            fg: '#1A202C',
-            muted: '#718096',
-            accent: '#1B4F72',
-            accentLight: '#2874A6',
-            card: '#FFFFFF',
-            border: '#E2E8F0',
-            success: '#27AE60',
-            warm: '#F5A623'
-          },
-          fontFamily: {
-            display: ['Space Grotesk', 'sans-serif'],
-            body: ['DM Sans', 'sans-serif']
-          }
-        }
-      }
-    }
-  </script>
-  
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Olive & Ember — Modern Restaurant</title>
+  <meta name="description" content="Olive & Ember — Seasonal small plates, artisan cocktails and warm hospitality. Reserve a table.">
   <style>
-    body {
-      font-family: 'DM Sans', sans-serif;
-      background-color: #FAFBFC;
-      color: #1A202C;
+    /* Reset & base */
+    :root{
+      --bg:#0f1720;
+      --card:#0b1220;
+      --accent:#E9B44C;
+      --accent-2:#FF7A59;
+      --muted:#AAB0B8;
+      --glass: rgba(255,255,255,0.06);
+      --radius:14px;
     }
-    
-    .headline {
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 700;
-      line-height: 1.1;
-      letter-spacing: -0.02em;
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: linear-gradient(180deg,#071123 0%, #081728 40%, #07101a 100%);
+      color:#e6eef6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      line-height:1.45;
+      -webkit-tap-highlight-color: transparent;
     }
-    
-    .fade-in {
-      animation: fadeIn 0.8s ease-out forwards;
+
+    /* Container */
+    .wrap{max-width:1150px;margin:36px auto;padding:0 20px}
+
+    /* Header */
+    header{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:18px;
+      margin-bottom:18px;
     }
-    
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
+    .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
+    .logo{
+      width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));
+      display:flex;align-items:center;justify-content:center;box-shadow: 0 6px 18px rgba(230,180,110,0.12);
+      flex-shrink:0;
     }
-    
-    .btn-primary {
-      background: linear-gradient(135deg, #1B4F72 0%, #2874A6 100%);
-      color: white;
-      padding: 16px 32px;
-      border-radius: 12px;
-      font-weight: 600;
-      border: none;
-      cursor: pointer;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 14px rgba(27, 79, 114, 0.25);
+    .logo svg{width:34px;height:34px}
+    .sitename{font-weight:700;font-size:18px;line-height:1}
+    .tag{font-size:12px;color:var(--muted);margin-top:2px}
+
+    nav{display:flex;gap:18px;align-items:center}
+    nav a{color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:10px}
+    nav a:hover{color:#fff;background:rgba(255,255,255,0.03)}
+    .cta{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#081217;padding:10px 14px;border-radius:10px;font-weight:700}
+    .phone{font-weight:700;color:var(--accent);font-size:14px}
+
+    /* Mobile nav */
+    .hamburger{display:none;background:transparent;border:0;color:var(--muted);font-size:20px;padding:8px;border-radius:10px}
+    .hamburger:focus{outline:2px solid rgba(255,255,255,0.06)}
+
+    /* Hero */
+    .hero{
+      display:grid;
+      grid-template-columns: 1fr 420px;
+      gap:28px;
+      align-items:center;
+            margin-bottom:36px;
     }
-    
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 25px rgba(27, 79, 114, 0.35);
+    .hero-card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius: var(--radius);
+      padding:28px;
+      box-shadow: 0 8px 30px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+      position:relative;
+      overflow:hidden;
     }
-    
-    .btn-primary:disabled {
-      opacity: 0.7;
-      cursor: not-allowed;
-      transform: none;
+    .eyebrow{display:inline-block;background:var(--glass);color:var(--accent);padding:6px 10px;border-radius:999px;font-weight:700;font-size:13px}
+    h1{font-size:36px;margin:14px 0 8px}
+    p.lead{color:var(--muted);margin:0 0 22px}
+    .cta-row{display:flex;gap:12px;align-items:center}
+    .btn-hero{background:linear-gradient(90deg,var(--accent),var(--accent-2));border:0;padding:12px 18px;border-radius:12px;color:#081217;font-weight:700;cursor:pointer}
+    .btn-secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px 14px;border-radius:12px;color:var(--muted);cursor:pointer}
+    .features{display:flex;gap:12px;margin-top:18px}
+    .feat{background:rgba(255,255,255,0.02);padding:10px;border-radius:10px;font-size:13px;color:var(--muted)}
+
+    /* Reservation card */
+    .reserve{
+      padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(14,20,28,0.65), rgba(8,12,18,0.6));
+      box-shadow: 0 8px 30px rgba(2,6,23,0.6);
     }
-    
-    .card {
-      background: white;
-      border: 1px solid #E2E8F0;
-      border-radius: 16px;
-      padding: 32px;
-      transition: all 0.3s ease;
+    .reserve h3{margin:0 0 10px;font-size:20px}
+    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
+    input, select{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
+    .res-btn{width:100%;padding:12px;border-radius:10px;background:linear-gradient(90deg,var(--accent),var(--accent-2));border:0;color:#081217;font-weight:700;cursor:pointer}
+
+    /* Menu section */
+    .section{margin:36px 0}
+    .cards{
+      display:grid;
+      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+      gap:16px;
     }
-    
-    .card:hover {
-      box-shadow: 0 20px 40px rgba(27, 79, 114, 0.08);
+    .dish{
+      display:flex;gap:12px;align-items:flex-start;padding:14px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.008));
+      border:1px solid rgba(255,255,255,0.02)
     }
-    
-    .form-input {
-      width: 100%;
-      padding: 14px 18px;
-      border: 2px solid #E2E8F0;
-      border-radius: 10px;
-      font-size: 1rem;
-      transition: all 0.2s ease;
+    .dish .thumb{width:96px;height:72px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#FF9B6B,#FF6B9B);color:#081217;font-weight:700;box-shadow: 0 8px 18px rgba(255,120,80,0.08)}
+    .dish h4{margin:0 0 6px;font-size:16px}
+    .dish p{margin:0;color:var(--muted);font-size:13px}
+    .price{margin-left:auto;font-weight:800;color:var(--accent)}
+
+    /* Gallery */
+    .gallery{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:10px;
+      margin-top:12px;
     }
-    
-    .form-input:focus {
-      outline: none;
-      border-color: #1B4F72;
-      box-shadow: 0 0 0 4px rgba(27, 79, 114, 0.1);
+    .gcard{border-radius:12px;height:120px;overflow:hidden;background:linear-gradient(135deg,#2a2f35 0%, #11151a 100%);display:flex;align-items:flex-end;padding:12px;color:#fff}
+    .gcard.small{height:80px}
+    .overlay{
+      background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.45) 100%);width:100%;height:100%;
+      display:flex;align-items:flex-end;padding:12px
     }
-    
-    .file-upload {
-      border: 2px dashed #E2E8F0;
-      border-radius: 12px;
-      padding: 32px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.3s ease;
+
+    /* Testimonials */
+    .testimonials{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+    .review{padding:14px;border-radius:12px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.02)}
+    .rating{color:var(--accent);font-weight:800}
+
+    /* Footer */
+    footer{margin-top:28px;padding:18px 12px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.006));display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
+    .social a{margin-right:8px;color:var(--muted);text-decoration:none}
+
+    /* Responsive */
+    @media (max-width:980px){
+      .hero{grid-template-columns:1fr;gap:20px}
+      nav{display:none}
+      .hamburger{display:inline-flex}
     }
-    
-    .file-upload:hover { border-color: #1B4F72; background: rgba(27, 79, 114, 0.02); }
-    .file-upload.has-file { border-color: #27AE60; background: rgba(39, 174, 96, 0.05); }
-    
-    .step-number {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #1B4F72 0%, #2874A6 100%);
-      color: white;
-      font-family: 'Space Grotesk', sans-serif;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
+    @media (max-width:620px){
+      .gallery{grid-template-columns:repeat(2,1fr)}
+      .wrap{padding:0 14px}
+      h1{font-size:28px}
     }
-    
-    .check-icon {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      background: rgba(39, 174, 96, 0.15);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-    
-    .logo-icon {
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
-      background: linear-gradient(135deg, #1B4F72 0%, #2874A6 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    
-    @media (prefers-reduced-motion: reduce) {
-      .fade-in { animation: none; opacity: 1; transform: none; }
-      .btn-primary { transition: none; }
-    }
+
+    /* small interactive touches */
+    a.anchor{scroll-margin-top:100px}
+    .btn-hero:active, .res-btn:active{transform:translateY(1px)}
+    .dish:hover{transform:translateY(-6px);transition:all .22s ease}
   </style>
 </head>
 <body>
-
-  <!-- Navigation -->
-  <nav class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-100">
-    <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
-      <a href="#" class="font-display font-bold text-xl text-accent flex items-center gap-3">
-        <!-- Logo Icon -->
-        <div class="logo-icon">
-          <svg width="20" height="20" viewBox="0 0 32 32" fill="none">
-            <path d="M6 24 L10 18 L14 20 L22 10" stroke="#27AE60" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-            <circle cx="22" cy="10" r="2" fill="#27AE60"/>
-            <text x="16" y="23" font-family="Arial" font-size="16" font-weight="bold" fill="white" text-anchor="middle">C</text>
+  <div class="wrap">
+    <!-- Header -->
+    <header>
+      <a href="#top" class="brand anchor" aria-label="Olive and Ember home">
+        <div class="logo" aria-hidden="true">
+          <!-- Simple olive + ember svg mark -->
+          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img">
+            <circle cx="32" cy="32" r="30" fill="white" opacity="0.06"/>
+            <path d="M20 36C20 29 28 22 36 22C35 26 38 29 40 32C41 34 40 38 36 42C32 46 20 48 20 36Z" fill="white" opacity="0.85"/>
+            <path d="M44 26C44 26 40 20 34 18" stroke="#081217" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <span>CashFlow Catalyst</span>
-      </a>
-      <a href="#audit-form" class="text-sm font-medium text-muted hover:text-accent transition-colors">Get Free Audit</a>
-    </div>
-  </nav>
-
-  <!-- Hero Section -->
-  <section class="pt-32 pb-20 px-6" style="background: linear-gradient(180deg, #FAFBFC 0%, #F1F5F9 100%);">
-    <div class="max-w-6xl mx-auto">
-      <div class="max-w-3xl fade-in">
-        <div class="inline-flex items-center gap-2 bg-white border border-gray-200 rounded-full px-4 py-2 mb-6 shadow-sm">
-          <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-          <span class="text-sm font-medium text-gray-600">Free for agencies and freelancers</span>
-        </div>
-        
-        <h1 class="headline text-4xl md:text-5xl lg:text-6xl text-fg mb-6">
-          Stop losing money to overdue invoices. Get your free Cash Flow Health Check.
-        </h1>
-        
-        <p class="text-lg md:text-xl text-muted leading-relaxed mb-10 max-w-2xl">
-          We'll analyze your unpaid invoices and give you a personalized recovery plan—email templates, aging breakdown, and a timeline to get paid.
-        </p>
-        
-        <a href="#audit-form" class="btn-primary inline-flex items-center gap-3">
-          Request Free Audit
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- Problem Section -->
-  <section class="py-20 bg-white border-y border-gray-100" id="problems">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="text-center mb-16">
-        <h2 class="headline text-3xl md:text-4xl text-fg mb-4">Sound familiar?</h2>
-        <p class="text-muted text-lg">These challenges cost agencies thousands every month</p>
-      </div>
-      
-      <div class="grid md:grid-cols-3 gap-8">
-        <div class="card">
-          <div class="w-14 h-14 rounded-xl bg-blue-50 flex items-center justify-center mb-6">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1B4F72" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-          </div>
-          <h3 class="font-display font-bold text-xl text-fg mb-3">Hours wasted chasing payments</h3>
-          <p class="text-gray-600">Time spent following up on unpaid invoices is time taken away from serving clients.</p>
-        </div>
-        
-        <div class="card">
-          <div class="w-14 h-14 rounded-xl bg-blue-50 flex items-center justify-center mb-6">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1B4F72" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-          </div>
-          <h3 class="font-display font-bold text-xl text-fg mb-3">Awkward follow-up emails</h3>
-          <p class="text-gray-600">Struggling to find the right words to ask for payment without damaging relationships.</p>
-        </div>
-        
-        <div class="card">
-          <div class="w-14 h-14 rounded-xl bg-blue-50 flex items-center justify-center mb-6">
-            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#1B4F72" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-          </div>
-          <h3 class="font-display font-bold text-xl text-fg mb-3">Cash flow suffering</h3>
-          <p class="text-gray-600">Late payments create unpredictable revenue, making it hard to cover expenses.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- How It Works Section -->
-  <section class="py-20 px-6">
-    <div class="max-w-4xl mx-auto">
-      <div class="text-center mb-16">
-        <h2 class="headline text-3xl md:text-4xl text-fg mb-4">How it works</h2>
-        <p class="text-muted text-lg">Three simple steps to recover your unpaid invoices</p>
-      </div>
-      
-      <div class="space-y-8">
-        <div class="card flex gap-6 items-start">
-          <div class="step-number">1</div>
-          <div>
-            <h3 class="font-display font-bold text-xl text-fg mb-2">Upload your overdue invoices</h3>
-            <p class="text-gray-600">Export your unpaid invoices as a CSV file from Stripe, QuickBooks, or any billing system.</p>
-          </div>
-        </div>
-        
-        <div class="card flex gap-6 items-start">
-          <div class="step-number">2</div>
-          <div>
-            <h3 class="font-display font-bold text-xl text-fg mb-2">We manually analyze the data</h3>
-            <p class="text-gray-600">Our team reviews each overdue invoice, identifying patterns and recovery opportunities.</p>
-          </div>
-        </div>
-        
-        <div class="card flex gap-6 items-start">
-          <div class="step-number">3</div>
-          <div>
-            <h3 class="font-display font-bold text-xl text-fg mb-2">Receive your custom recovery plan</h3>
-            <p class="text-gray-600">Get a detailed report with email templates and a realistic timeline to recover your money.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- What You Get Section -->
-  <section class="py-20 bg-gray-50 px-6">
-    <div class="max-w-6xl mx-auto">
-      <div class="grid lg:grid-cols-2 gap-16 items-center">
         <div>
-          <h2 class="headline text-3xl md:text-4xl text-fg mb-6">What you get in your free audit</h2>
-          <p class="text-muted text-lg mb-10">A comprehensive analysis delivered to your inbox within 24 hours.</p>
-          
-          <ul class="space-y-5">
-            <li class="flex items-start gap-4">
-              <div class="check-icon mt-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#27AE60" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
-              <div>
-                <strong class="text-fg font-semibold">Total overdue amount</strong>
-                <p class="text-gray-500 text-sm mt-1">Clear breakdown of exactly how much you're owed</p>
-              </div>
-            </li>
-            <li class="flex items-start gap-4">
-              <div class="check-icon mt-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#27AE60" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
-              <div>
-                <strong class="text-fg font-semibold">Aging breakdown (30/60/90+ days)</strong>
-                <p class="text-gray-500 text-sm mt-1">Understand which invoices need immediate attention</p>
-              </div>
-            </li>
-            <li class="flex items-start gap-4">
-              <div class="check-icon mt-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#27AE60" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
-              <div>
-                <strong class="text-fg font-semibold">Personalized email templates</strong>
-                <p class="text-gray-500 text-sm mt-1">Professional, tactful messages ready to send</p>
-              </div>
-            </li>
-            <li class="flex items-start gap-4">
-              <div class="check-icon mt-1"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#27AE60" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
-              <div>
-                <strong class="text-fg font-semibold">Recovery timeline</strong>
-                <p class="text-gray-500 text-sm mt-1">A realistic plan for when to expect payment</p>
-              </div>
-            </li>
-          </ul>
+          <div class="sitename">Olive & Ember</div>
+          <div class="tag">Seasonal Small Plates • Artisan Cocktails</div>
         </div>
-        
-        <!-- Visual Card -->
-        <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-8">
-          <div class="flex items-center justify-between mb-6">
-            <span class="font-display font-bold text-lg text-fg">Cash Flow Report</span>
-            <span class="text-xs font-medium text-gray-400 bg-gray-100 px-3 py-1 rounded-full">CONFIDENTIAL</span>
-          </div>
-          <div class="space-y-4 mb-6">
-            <div class="flex justify-between items-center py-3 border-b border-gray-100">
-              <span class="text-gray-500">Total Overdue</span>
-              <span class="font-display font-bold text-2xl text-accent">$24,850</span>
-            </div>
-            <div class="grid grid-cols-3 gap-4 text-center">
-              <div class="bg-gray-50 rounded-lg p-3"><span class="block text-xs text-gray-500 mb-1">30 days</span><span class="font-semibold text-fg">$8,200</span></div>
-              <div class="bg-gray-50 rounded-lg p-3"><span class="block text-xs text-gray-500 mb-1">60 days</span><span class="font-semibold text-fg">$12,150</span></div>
-              <div class="bg-gray-50 rounded-lg p-3"><span class="block text-xs text-gray-500 mb-1">90+ days</span><span class="font-semibold text-warm">$4,500</span></div>
-            </div>
-          </div>
-          <div class="flex items-center gap-3 p-4 bg-green-50 rounded-lg border border-green-100">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#27AE60" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-            <div><span class="block font-semibold text-green-600 text-sm">Estimated Recovery</span><span class="block text-xs text-gray-500">$21,600 within 45 days</span></div>
-          </div>
-        </div>
+      </a>
+
+      <nav aria-label="Main navigation">
+        <a href="#menu" class="anchor">Menu</a>
+        <a href="#gallery" class="anchor">Gallery</a>
+        <a href="#about" class="anchor">About</a>
+        <a href="#contact" class="anchor">Contact</a>
+      </nav>
+
+      <div style="display:flex;gap:12px;align-items:center">
+        <div class="phone">Call: (555) 321-9876</div>
+        <button class="cta" onclick="document.getElementById('reserve-form').scrollIntoView({behavior:'smooth'})">Reserve</button>
+        <button class="hamburger" id="hambtn" aria-expanded="false" aria-controls="mobileMenu">☰</button>
+      </div>
+    </header>
+
+    <!-- Mobile menu (hidden on desktop) -->
+    <div id="mobileMenu" style="display:none;margin-bottom:12px">
+      <div style="background:rgba(255,255,255,0.02);padding:12px;border-radius:12px">
+        <a href="#menu" class="anchor" style="display:block;padding:8px 0;color:var(--muted)">Menu</a>
+        <a href="#gallery" class="anchor" style="display:block;padding:8px 0;color:var(--muted)">Gallery</a>
+        <a href="#about" class="anchor" style="display:block;padding:8px 0;color:var(--muted)">About</a>
+        <a href="#contact" class="anchor" style="display:block;padding:8px 0;color:var(--muted)">Contact</a>
       </div>
     </div>
-  </section>
 
-  <!-- Form Section -->
-  <section class="py-20 px-6" id="audit-form">
-    <div class="max-w-2xl mx-auto">
-      <div class="text-center mb-12">
-        <h2 class="headline text-3xl md:text-4xl text-fg mb-4">Request your free audit</h2>
-        <p class="text-muted text-lg">Fill out the form below. We'll send your plan within 24 hours.</p>
+    <!-- Hero -->
+    <section class="hero" id="top" aria-label="Main hero">
+      <div class="hero-card" role="region" aria-labelledby="heroTitle">
+        <span class="eyebrow">New seasonal tasting menu</span>
+        <h1 id="heroTitle">Where fire meets flavor — modern Mediterranean with a twist</h1>
+        <p class="lead">Locally sourced ingredients, small plates designed for sharing, and cocktails curated to complement every bite. Join us for dinner, weekend brunch, or a private tasting.</p>
+
+        <div class="cta-row">
+          <button class="btn-hero" onclick="document.getElementById('reserve-form').scrollIntoView({behavior:'smooth'})">Reserve a table</button>
+          <button class="btn-secondary" onclick="alert('We\'ll call you to confirm — demo only')">Call & Reserve</button>
+        </div>
+
+        <div class="features" aria-hidden="true">
+          <div class="feat">Open Tue–Sun</div>
+          <div class="feat">Outdoor Patio</div>
+          <div class="feat">Private Events</div>
+        </div>
+
+        <!-- subtle decorative SVG -->
+        <svg viewBox="0 0 400 120" style="position:absolute;right:-40px;bottom:-30px;width:360px;opacity:0.08" aria-hidden="true">
+          <defs>
+            <linearGradient id="g1" x1="0" x2="1">
+              <stop offset="0" stop-color="#FF7A59"/>
+              <stop offset="1" stop-color="#E9B44C"/>
+            </linearGradient>
+          </defs>
+          <path d="M0 80 C90 20 310 20 400 80 L400 140 L0 140 Z" fill="url(#g1)"></path>
+        </svg>
       </div>
-      
-      <div class="card shadow-lg">
-        
-        <!-- FORM START -->
-        <!-- IMPORTANT: Replace your-email@example.com with your real email address -->
-        <form id="auditForm" action="https://formsubmit.co/e3124be8fb70355005934709a3b4aa2b" method="POST" enctype="multipart/form-data">
-          <input type="hidden" name="_subject" value="New Cash Flow Audit Request!">
-          <input type="hidden" name="_captcha" value="false">
-          <input type="hidden" name="_template" value="table">
-          
-          <div class="space-y-6">
-            <div>
-              <label for="fullName" class="block text-sm font-medium text-fg mb-2">Full Name</label>
-              <input type="text" id="fullName" name="fullName" required class="form-input" placeholder="John Smith">
-            </div>
-            
-            <div>
-              <label for="email" class="block text-sm font-medium text-fg mb-2">Email Address</label>
-              <input type="email" id="email" name="email" required class="form-input" placeholder="john@youragency.com">
-            </div>
-            
-            <div>
-              <label for="businessName" class="block text-sm font-medium text-fg mb-2">Agency/Business Name</label>
-              <input type="text" id="businessName" name="businessName" required class="form-input" placeholder="Your Agency LLC">
-            </div>
-            
-            <div>
-              <label class="block text-sm font-medium text-fg mb-2">Upload Overdue Invoices</label>
-              <div class="file-upload" id="dropZone">
-                <input type="file" id="invoiceFile" name="attachment" accept=".csv,.xlsx,.xls" required class="hidden">
-                <div id="uploadContent">
-                  <svg class="mx-auto mb-4" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#718096" stroke-width="1.5">
-                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/>
-                  </svg>
-                  <p class="text-gray-500 mb-2">Drag and drop your file here, or <span class="text-accent font-medium">browse</span></p>
-                  <p class="text-sm text-gray-400">Accepts .csv, .xlsx, .xls (Max 10MB)</p>
-                </div>
-                <div id="fileSelected" class="hidden">
-                  <svg class="mx-auto mb-4" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#27AE60" stroke-width="1.5">
-                    <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/>
-                  </svg>
-                  <p class="font-medium text-green-600" id="fileName">filename.csv</p>
-                  <p class="text-sm text-gray-400 mt-1">Click to change file</p>
-                </div>
-              </div>
-            </div>
-            
-            <button type="submit" class="btn-primary w-full" id="submitBtn">Request Free Audit</button>
+
+      <aside class="reserve" aria-labelledby="reserveTitle">
+        <h3 id="reserveTitle">Book a table</h3>
+        <form id="reserve-form" onsubmit="return handleReserve(event)" novalidate>
+          <div class="form-grid">
+            <input type="text" name="name" placeholder="Your name" required aria-label="Your name">
+            <input type="tel" name="phone" placeholder="Phone number" required aria-label="Phone number">
           </div>
+          <div class="form-grid">
+            <input type="date" name="date" required aria-label="Reservation date">
+            <select name="time" required aria-label="Reservation time">
+              <option value="">Select time</option>
+              <option>17:00</option>
+              <option>18:00</option>
+              <option>19:00</option>
+              <option>20:00</option>
+            </select>
+          </div>
+          <div style="margin-bottom:8px">
+            <select name="party" required aria-label="Party size">
+              <option value="">Party size</option>
+              <option>1</option><option>2</option><option>3</option><option>4</option><option>5+</option>
+            </select>
+          </div>
+          <button type="submit" class="res-btn">Request Reservation</button>
+          <div style="font-size:13px;color:var(--muted);margin-top:10px">We will call to confirm — demo submission only.</div>
         </form>
-        <!-- FORM END -->
+      </aside>
+    </section>
 
-        <!-- Success Message -->
-        <div id="successMessage" class="hidden text-center py-8">
-          <div class="w-16 h-16 rounded-full bg-green-500 flex items-center justify-center mx-auto mb-4">
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-          </div>
-          <h3 class="font-display font-bold text-xl text-fg mb-2">Thanks for your request</h3>
-          <p class="text-gray-500">We'll email your personalized recovery plan within 24 hours.</p>
-        </div>
-        
-      </div>
-    </div>
-  </section>
+    <!-- Menu -->
+    <section class="section" id="menu" aria-label="Menu">
+      <h2 style="margin:0 0 12px">Chef's picks</h2>
+      <p style="margin:0 0 18px;color:var(--muted)">A rotating selection of small plates, crafted to share and enjoy with friends.</p>
 
-  <!-- Footer -->
-  <footer class="py-12 border-t border-gray-100 bg-white">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="flex flex-col md:flex-row items-center justify-between gap-6">
-        <a href="#" class="font-display font-bold text-lg text-accent flex items-center gap-3">
-          <div class="logo-icon">
-            <svg width="20" height="20" viewBox="0 0 32 32" fill="none">
-              <path d="M6 24 L10 18 L14 20 L22 10" stroke="#27AE60" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-              <circle cx="22" cy="10" r="2" fill="#27AE60"/>
-              <text x="16" y="23" font-family="Arial" font-size="16" font-weight="bold" fill="white" text-anchor="middle">C</text>
+      <div class="cards" role="list">
+        <article class="dish" role="listitem">
+          <div class="thumb" aria-hidden="true">
+            <!-- stylized plate -->
+            <svg width="72" height="54" viewBox="0 0 72 54" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <rect width="72" height="54" rx="10" fill="white" opacity="0.08"/>
+              <circle cx="34" cy="26" r="16" fill="#081217" opacity="0.25"/>
             </svg>
           </div>
-          <span>CashFlow Catalyst</span>
-        </a>
-        <p class="text-sm text-gray-400">&copy; <span id="year"></span> CashFlow Catalyst. All rights reserved.</p>
+          <div>
+            <h4>Charred Octopus</h4>
+            <p>Smoked paprika, lemon oil, charred fingerling potatoes.</p>
+          </div>
+          <div class="price">$18</div>
+        </article>
+
+        <article class="dish" role="listitem">
+          <div class="thumb" aria-hidden="true" style="background:linear-gradient(135deg,#6BFF9B,#6BC1FF);">
+            <svg width="72" height="54" viewBox="0 0 72 54"><rect width="72" height="54" rx="10" fill="white" opacity="0.06"/></svg>
+          </div>
+          <div>
+            <h4>Heirloom Tomato Salad</h4>
+            <p>Burrata, basil oil, toasted seeds, 10-year balsamic.</p>
+          </div>
+          <div class="price">$14</div>
+        </article>
+
+        <article class="dish" role="listitem">
+          <div class="thumb" aria-hidden="true" style="background:linear-gradient(135deg,#FFD36B,#FF8B6B);">
+            <svg width="72" height="54" viewBox="0 0 72 54"><rect width="72" height="54" rx="10" fill="white" opacity="0.06"/></svg>
+          </div>
+          <div>
+            <h4>Wood-Grilled Lamb Skewers</h4>
+            <p>Za'atar glaze, tzatziki, roasted lemon.</p>
+          </div>
+          <div class="price">$22</div>
+        </article>
+
+        <article class="dish" role="listitem">
+          <div class="thumb" aria-hidden="true" style="background:linear-gradient(135deg,#C084FC,#60A5FA);">
+            <svg width="72" height="54" viewBox="0 0 72 54"><rect width="72" height="54" rx="10" fill="white" opacity="0.06"/></svg>
+          </div>
+          <div>
+            <h4>Roasted Forest Mushrooms</h4>
+            <p>Garlic butter, thyme, sourdough croutons.</p>
+          </div>
+          <div class="price">$15</div>
+        </article>
       </div>
-    </div>
-  </footer>
+    </section>
+
+    <!-- Gallery -->
+    <section class="section" id="gallery" aria-label="Gallery">
+      <h2 style="margin:0 0 12px">Gallery</h2>
+      <p style="margin:0 0 12px;color:var(--muted)">A glimpse at our space, plates and gatherings.</p>
+
+      <div class="gallery" role="list" aria-label="Gallery images">
+        <div class="gcard" role="listitem" style="background:linear-gradient(135deg,#FF9B6B,#FF6B9B)">
+          <div class="overlay"><strong>Open fire</strong></div>
+        </div>
+        <div class="gcard small" role="listitem" style="background:linear-gradient(135deg,#6BC1FF,#9BFFEF)">
+          <div class="overlay"><strong>Brunch</strong></div>
+        </div>
+        <div class="gcard" role="listitem" style="background:linear-gradient(135deg,#A78BFA,#60A5FA)">
+          <div class="overlay"><strong>Plating</strong></div>
+        </div>
+        <div class="gcard small" role="listitem" style="background:linear-gradient(135deg,#FFDF7A,#FF8BA3)">
+          <div class="overlay"><strong>Cocktails</strong></div>
+        </div>
+        <div class="gcard" role="listitem" style="background:linear-gradient(135deg,#7EE787,#00C2A0)">
+          <div class="overlay"><strong>Patio</strong></div>
+        </div>
+        <div class="gcard" role="listitem" style="background:linear-gradient(135deg,#FFD36B,#FF9B6B)">
+          <div class="overlay"><strong>Chef's Table</strong></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- About & Testimonials -->
+    <section class="section" id="about" aria-label="About">
+      <div style="display:grid;grid-template-columns:2fr 1fr;gap:16px;align-items:start">
+        <div>
+          <h2 style="margin:0 0 10px">About Olive & Ember</h2>
+          <p style="color:var(--muted)">Founded on summer nights and open flames, Olive & Ember brings a modern Mediterranean approach to seasonal cooking. We partner with local farms, sustainable fisheries and independent producers to craft dishes that are simple, vibrant and full of character.</p>
+          <ul style="color:var(--muted);margin-top:12px">
+            <li>Carefully curated wine list and cocktail program</li>
+            <li>Seasonal tasting menus and private dining</li>
+            <li>Outdoor seating and heated patio in cooler months</li>
+          </ul>
+        </div>
+
+        <aside>
+          <h3 style="margin-top:0">What guests say</h3>
+          <div class="testimonials">
+            <div class="review">
+              <div class="rating">★★★★★</div>
+              <p style="margin:8px 0 0;color:var(--muted)">"Amazing flavors and warm service. The tasting menu was a dream."</p>
+            </div>
+            <div class="review">
+              <div class="rating">★★★★☆</div>
+              <p style="margin:8px 0 0;color:var(--muted)">"Cozy patio and inventive cocktails — a perfect date spot."</p>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <!-- Contact -->
+    <section class="section" id="contact" aria-label="Contact">
+      <div style="display:grid;grid-template-columns:1fr 360px;gap:16px;align-items:start">
+        <div>
+          <h2 style="margin:0 0 8px">Visit & Contact</h2>
+          <p style="color:var(--muted);margin:0 0 12px">123 Ember Lane, Harbor City • Tue–Sun 11:30am–10pm</p>
+          <p style="color:var(--muted);margin:0 0 16px">For private events, email events@oliveandember.example (demo).</p>
+
+          <div style="background:rgba(255,255,255,0.02);padding:12px;border-radius:12px;color:var(--muted)">
+            <strong>Hours</strong>
+            <div style="margin-top:6px;font-size:14px">Tue–Fri 11:30–22:00 • Sat–Sun Brunch 10:00–14:00</div>
+          </div>
+        </div>
+
+        <div style="background:rgba(255,255,255,0.02);padding:12px;border-radius:12px">
+          <h4 style="margin:0 0 10px">Quick message</h4>
+          <form id="contactForm" onsubmit="return handleContact(event)" novalidate>
+            <input name="cname" placeholder="Name" style="margin-bottom:8px" required>
+            <input name="cemail" placeholder="Email" style="margin-bottom:8px" required type="email">
+            <textarea name="cmsg" placeholder="Message" rows="4" style="width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit" required></textarea>
+            <div style="margin-top:8px"><button class="res-btn" type="submit">Send</button></div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+      <div>
+        <div style="font-weight:700">Olive & Ember</div>
+        <div style="color:var(--muted);font-size:13px">© <span id="year"></span> Olive & Ember — All rights reserved</div>
+      </div>
+      <div style="display:flex;gap:16px;align-items:center">
+        <div class="social">
+          <a href="#" aria-label="Instagram">IG</a>
+          <a href="#" aria-label="Facebook">FB</a>
+          <a href="#" aria-label="Twitter">TW</a>
+        </div>
+        <div style="color:var(--muted);font-size:13px">Made with care • Demo landing</div>
+      </div>
+    </footer>
+  </div>
 
   <script>
-    // Set year
+    // set year
     document.getElementById('year').textContent = new Date().getFullYear();
 
-    // File Upload Logic
-    const dropZone = document.getElementById('dropZone');
-    const fileInput = document.getElementById('invoiceFile');
-    const uploadContent = document.getElementById('uploadContent');
-    const fileSelected = document.getElementById('fileSelected');
-    const fileName = document.getElementById('fileName');
-
-    dropZone.addEventListener('click', () => fileInput.click());
-
-    fileInput.addEventListener('change', (e) => {
-      if (e.target.files.length > 0) {
-        const file = e.target.files[0];
-        fileName.textContent = file.name;
-        uploadContent.classList.add('hidden');
-        fileSelected.classList.remove('hidden');
-        dropZone.classList.add('has-file');
-      }
+    // mobile menu toggle
+    const ham = document.getElementById('hambtn');
+    const mm = document.getElementById('mobileMenu');
+    ham && ham.addEventListener('click', () => {
+      const open = mm.style.display === 'block';
+      mm.style.display = open ? 'none' : 'block';
+      ham.setAttribute('aria-expanded', String(!open));
     });
 
-    // Form Submission
-    const form = document.getElementById('auditForm');
-    const btn = document.getElementById('submitBtn');
-    const successMsg = document.getElementById('successMessage');
+    // Smooth anchor links for in-page nav
+    document.querySelectorAll('a.anchor').forEach(a=>{
+      a.addEventListener('click', (e)=>{
+        // default anchor behavior ok if href used; ensure smooth
+        e.preventDefault();
+        const tgt = document.querySelector(a.getAttribute('href'));
+        if(tgt) tgt.scrollIntoView({behavior:'smooth'});
+      });
+    });
 
-    form.addEventListener('submit', async (e) => {
+    // Reservation demo handler
+    function handleReserve(e){
       e.preventDefault();
-      
-      if (!fileInput.files.length) {
-        alert('Please upload a file.');
-        return;
-      }
+      const f = e.target;
+      const name = f.name.value.trim();
+      if(!name){ alert('Please enter name'); return false; }
+      // demo confirmation
+      alert('Thanks ' + name + '! We received your reservation request. We will call to confirm (demo).');
+      f.reset();
+      return false;
+    }
 
-      btn.disabled = true;
-      btn.innerHTML = 'Submitting...';
-
-      const data = new FormData(form);
-      
-      try {
-        const response = await fetch(form.action, {
-          method: 'POST',
-          body: data,
-          headers: { 'Accept': 'application/json' }
-        });
-
-        if (response.ok) {
-          form.classList.add('hidden');
-          successMsg.classList.remove('hidden');
-        } else {
-          alert('Error submitting form. Please check your email settings.');
-          btn.disabled = false;
-          btn.innerHTML = 'Request Free Audit';
-        }
-      } catch (error) {
-        alert('Error submitting form.');
-        btn.disabled = false;
-        btn.innerHTML = 'Request Free Audit';
-      }
-    });
+    // Contact demo handler
+    function handleContact(e){
+      e.preventDefault();
+      const f = e.target;
+      alert('Thanks ' + (f.cname?.value || '') + '! We received your message (demo).');
+      f.reset();
+      return false;
+    }
   </script>
 </body>
 </html>
