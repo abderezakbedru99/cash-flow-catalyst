@@ -1,457 +1,603 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Olive & Ember — Modern Restaurant</title>
-  <meta name="description" content="Olive & Ember — Seasonal small plates, artisan cocktails and warm hospitality. Reserve a table.">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Karasu — hey bud.</title>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet" />
   <style>
-    /* Reset & base */
-    :root{
-      --bg:#0f1720;
-      --card:#0b1220;
-      --accent:#E9B44C;
-      --accent-2:#FF7A59;
-      --muted:#AAB0B8;
-      --glass: rgba(255,255,255,0.06);
-      --radius:14px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: linear-gradient(180deg,#071123 0%, #081728 40%, #07101a 100%);
-      color:#e6eef6;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-      line-height:1.45;
-      -webkit-tap-highlight-color: transparent;
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #080808;
+      --deep: #0d0d0d;
+      --ash: #1a1a1a;
+      --fog: #2a2a2a;
+      --smoke: #444444;
+      --mist: #888888;
+      --pale: #bbbbbb;
+      --white: #f0ede8;
+      --red: #8b1a1a;
+      --red-soft: #a52929;
     }
 
-    /* Container */
-    .wrap{max-width:1150px;margin:36px auto;padding:0 20px}
-
-    /* Header */
-    header{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:18px;
-      margin-bottom:18px;
-    }
-    .brand{display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit}
-    .logo{
-      width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent-2));
-      display:flex;align-items:center;justify-content:center;box-shadow: 0 6px 18px rgba(230,180,110,0.12);
-      flex-shrink:0;
-    }
-    .logo svg{width:34px;height:34px}
-    .sitename{font-weight:700;font-size:18px;line-height:1}
-    .tag{font-size:12px;color:var(--muted);margin-top:2px}
-
-    nav{display:flex;gap:18px;align-items:center}
-    nav a{color:var(--muted);text-decoration:none;padding:8px 12px;border-radius:10px}
-    nav a:hover{color:#fff;background:rgba(255,255,255,0.03)}
-    .cta{background:linear-gradient(90deg,var(--accent),var(--accent-2));color:#081217;padding:10px 14px;border-radius:10px;font-weight:700}
-    .phone{font-weight:700;color:var(--accent);font-size:14px}
-
-    /* Mobile nav */
-    .hamburger{display:none;background:transparent;border:0;color:var(--muted);font-size:20px;padding:8px;border-radius:10px}
-    .hamburger:focus{outline:2px solid rgba(255,255,255,0.06)}
-
-    /* Hero */
-    .hero{
-      display:grid;
-      grid-template-columns: 1fr 420px;
-      gap:28px;
-      align-items:center;
-            margin-bottom:36px;
-    }
-    .hero-card{
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-      border-radius: var(--radius);
-      padding:28px;
-      box-shadow: 0 8px 30px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
-      position:relative;
-      overflow:hidden;
-    }
-    .eyebrow{display:inline-block;background:var(--glass);color:var(--accent);padding:6px 10px;border-radius:999px;font-weight:700;font-size:13px}
-    h1{font-size:36px;margin:14px 0 8px}
-    p.lead{color:var(--muted);margin:0 0 22px}
-    .cta-row{display:flex;gap:12px;align-items:center}
-    .btn-hero{background:linear-gradient(90deg,var(--accent),var(--accent-2));border:0;padding:12px 18px;border-radius:12px;color:#081217;font-weight:700;cursor:pointer}
-    .btn-secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);padding:10px 14px;border-radius:12px;color:var(--muted);cursor:pointer}
-    .features{display:flex;gap:12px;margin-top:18px}
-    .feat{background:rgba(255,255,255,0.02);padding:10px;border-radius:10px;font-size:13px;color:var(--muted)}
-
-    /* Reservation card */
-    .reserve{
-      padding:18px;border-radius:12px;background:linear-gradient(180deg, rgba(14,20,28,0.65), rgba(8,12,18,0.6));
-      box-shadow: 0 8px 30px rgba(2,6,23,0.6);
-    }
-    .reserve h3{margin:0 0 10px;font-size:20px}
-    .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}
-    input, select{width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
-    .res-btn{width:100%;padding:12px;border-radius:10px;background:linear-gradient(90deg,var(--accent),var(--accent-2));border:0;color:#081217;font-weight:700;cursor:pointer}
-
-    /* Menu section */
-    .section{margin:36px 0}
-    .cards{
-      display:grid;
-      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
-      gap:16px;
-    }
-    .dish{
-      display:flex;gap:12px;align-items:flex-start;padding:14px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.008));
-      border:1px solid rgba(255,255,255,0.02)
-    }
-    .dish .thumb{width:96px;height:72px;border-radius:10px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#FF9B6B,#FF6B9B);color:#081217;font-weight:700;box-shadow: 0 8px 18px rgba(255,120,80,0.08)}
-    .dish h4{margin:0 0 6px;font-size:16px}
-    .dish p{margin:0;color:var(--muted);font-size:13px}
-    .price{margin-left:auto;font-weight:800;color:var(--accent)}
-
-    /* Gallery */
-    .gallery{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:10px;
-      margin-top:12px;
-    }
-    .gcard{border-radius:12px;height:120px;overflow:hidden;background:linear-gradient(135deg,#2a2f35 0%, #11151a 100%);display:flex;align-items:flex-end;padding:12px;color:#fff}
-    .gcard.small{height:80px}
-    .overlay{
-      background: linear-gradient(180deg, rgba(0,0,0,0) 0%, rgba(0,0,0,0.45) 100%);width:100%;height:100%;
-      display:flex;align-items:flex-end;padding:12px
+    html, body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      min-height: 100vh;
+      overflow-x: hidden;
     }
 
-    /* Testimonials */
-    .testimonials{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
-    .review{padding:14px;border-radius:12px;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.02)}
-    .rating{color:var(--accent);font-weight:800}
-
-    /* Footer */
-    footer{margin-top:28px;padding:18px 12px;border-radius:12px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.006));display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px}
-    .social a{margin-right:8px;color:var(--muted);text-decoration:none}
-
-    /* Responsive */
-    @media (max-width:980px){
-      .hero{grid-template-columns:1fr;gap:20px}
-      nav{display:none}
-      .hamburger{display:inline-flex}
-    }
-    @media (max-width:620px){
-      .gallery{grid-template-columns:repeat(2,1fr)}
-      .wrap{padding:0 14px}
-      h1{font-size:28px}
+    #canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      z-index: 0;
+      pointer-events: none;
     }
 
-    /* small interactive touches */
-    a.anchor{scroll-margin-top:100px}
-    .btn-hero:active, .res-btn:active{transform:translateY(1px)}
-    .dish:hover{transform:translateY(-6px);transition:all .22s ease}
+    .page { position: relative; z-index: 1; }
+
+    /* HERO */
+    .hero {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 0 8vw;
+    }
+
+    .crow-symbol {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(64px, 12vw, 140px);
+      font-weight: 300;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      line-height: 1;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 1.2s ease forwards 0.3s;
+    }
+
+    .crow-symbol span { color: var(--red-soft); }
+
+    .hero-line {
+      font-size: clamp(15px, 2.2vw, 22px);
+      font-weight: 300;
+      color: var(--mist);
+      letter-spacing: 0.04em;
+      margin-top: 18px;
+      opacity: 0;
+      transform: translateY(12px);
+      animation: fadeUp 1s ease forwards 0.7s;
+    }
+
+    .hero-tagline {
+      font-size: clamp(28px, 5vw, 52px);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.25;
+      margin-top: 40px;
+      max-width: 680px;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeUp 1s ease forwards 1s;
+    }
+
+    .hero-tagline em { font-style: normal; color: var(--pale); }
+
+    .scroll-hint {
+      margin-top: 60px;
+      font-size: 12px;
+      letter-spacing: 0.2em;
+      color: var(--smoke);
+      text-transform: uppercase;
+      opacity: 0;
+      animation: fadeUp 1s ease forwards 1.6s;
+    }
+
+    /* SECTIONS */
+    .section { padding: 100px 8vw; }
+
+    .section-label {
+      font-size: 11px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--red-soft);
+      margin-bottom: 40px;
+    }
+
+    /* MODERN CHAT BUBBLES */
+    .chat-window {
+      max-width: 480px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .bubble-row {
+      display: flex;
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+
+    .bubble-row.visible { opacity: 1; transform: translateY(0); }
+
+    .bubble-row.karasu { justify-content: flex-start; }
+    .bubble-row.you { justify-content: flex-end; }
+
+    .bubble {
+      max-width: 78%;
+      padding: 11px 16px;
+      border-radius: 18px;
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.55;
+    }
+
+    .bubble-row.karasu .bubble {
+      background: #1e1e1e;
+      color: var(--pale);
+      border-bottom-left-radius: 4px;
+    }
+
+    .bubble-row.you .bubble {
+      background: var(--red);
+      color: #f0e8e8;
+      border-bottom-right-radius: 4px;
+    }
+
+    .chat-beat {
+      text-align: center;
+      font-size: 12px;
+      color: var(--smoke);
+      font-style: italic;
+      letter-spacing: 0.05em;
+      padding: 8px 0 4px;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+
+    .chat-beat.visible { opacity: 1; }
+
+    /* INNER SELF SECTION */
+    .inner-section {
+      padding: 100px 8vw;
+      border-top: 1px solid var(--ash);
+    }
+
+    .inner-quote {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(22px, 4vw, 42px);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.45;
+      max-width: 700px;
+      margin-bottom: 48px;
+    }
+
+    .inner-quote span { color: var(--red-soft); }
+
+    .inner-body {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--mist);
+      line-height: 1.8;
+      max-width: 520px;
+      margin-bottom: 56px;
+    }
+
+    .inner-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1px;
+      background: var(--ash);
+      border: 1px solid var(--ash);
+      max-width: 700px;
+    }
+
+    .inner-item {
+      padding: 32px 28px;
+      background: var(--deep);
+    }
+
+    .inner-item .num {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--red-soft);
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .inner-item p {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--mist);
+      line-height: 1.7;
+    }
+
+    .inner-item strong {
+      display: block;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--pale);
+      margin-bottom: 8px;
+    }
+
+    /* GRID */
+    .what-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 2px;
+      margin-top: 10px;
+    }
+
+    .what-item {
+      padding: 40px 32px;
+      background: var(--deep);
+      border: 1px solid var(--ash);
+    }
+
+    .what-item .icon { font-size: 24px; margin-bottom: 20px; display: block; }
+
+    .what-item h3 {
+      font-size: 16px;
+      font-weight: 500;
+      color: var(--white);
+      margin-bottom: 12px;
+    }
+
+    .what-item p {
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--mist);
+      line-height: 1.7;
+    }
+
+    .divider {
+      width: 1px;
+      height: 80px;
+      background: linear-gradient(to bottom, transparent, var(--ash), transparent);
+      margin: 0 8vw;
+    }
+
+    /* WAITLIST */
+    .waitlist-section { padding: 100px 8vw 140px; }
+
+    .waitlist-heading {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(32px, 6vw, 72px);
+      font-weight: 300;
+      color: var(--white);
+      line-height: 1.2;
+      max-width: 600px;
+      margin-bottom: 16px;
+    }
+
+    .waitlist-sub {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--mist);
+      margin-bottom: 48px;
+      max-width: 400px;
+      line-height: 1.6;
+    }
+
+    .waitlist-form {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-width: 420px;
+    }
+
+    .waitlist-form input[type="email"] {
+      background: var(--deep);
+      border: 1px solid var(--fog);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 15px;
+      font-weight: 300;
+      padding: 16px 20px;
+      outline: none;
+      transition: border-color 0.2s;
+      border-radius: 0;
+      -webkit-appearance: none;
+    }
+
+    .waitlist-form input[type="email"]::placeholder { color: var(--smoke); }
+    .waitlist-form input[type="email"]:focus { border-color: var(--red-soft); }
+
+    .waitlist-form button {
+      background: var(--red);
+      border: none;
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 16px 32px;
+      cursor: pointer;
+      transition: background 0.2s;
+      border-radius: 0;
+    }
+
+    .waitlist-form button:hover { background: var(--red-soft); }
+
+    .waitlist-note {
+      margin-top: 4px;
+      font-size: 12px;
+      color: var(--smoke);
+      letter-spacing: 0.05em;
+    }
+
+    .success-msg {
+      display: none;
+      font-size: 15px;
+      color: var(--pale);
+      font-weight: 300;
+      line-height: 1.6;
+      padding: 20px 0;
+      border-top: 1px solid var(--ash);
+      max-width: 420px;
+    }
+
+    footer {
+      border-top: 1px solid var(--ash);
+      padding: 32px 8vw;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    footer .logo {
+      font-family: 'Noto Serif JP', serif;
+      font-size: 18px;
+      font-weight: 300;
+      color: var(--white);
+      letter-spacing: 0.05em;
+    }
+
+    footer p { font-size: 12px; color: var(--smoke); letter-spacing: 0.05em; }
+
+    @keyframes fadeUp { to { opacity: 1; transform: translateY(0) translateX(0); } }
+
+    @media (max-width: 600px) {
+      .hero { padding: 0 6vw; }
+      .section, .waitlist-section, .inner-section { padding: 70px 6vw; }
+      .divider { margin: 0 6vw; }
+      footer { padding: 28px 6vw; }
+      .what-item { padding: 28px 20px; }
+      .bubble { max-width: 88%; font-size: 14px; }
+    }
   </style>
 </head>
 <body>
-  <div class="wrap">
-    <!-- Header -->
-    <header>
-      <a href="#top" class="brand anchor" aria-label="Olive and Ember home">
-        <div class="logo" aria-hidden="true">
-          <!-- Simple olive + ember svg mark -->
-          <svg viewBox="0 0 64 64" fill="none" xmlns="http://www.w3.org/2000/svg" role="img">
-            <circle cx="32" cy="32" r="30" fill="white" opacity="0.06"/>
-            <path d="M20 36C20 29 28 22 36 22C35 26 38 29 40 32C41 34 40 38 36 42C32 46 20 48 20 36Z" fill="white" opacity="0.85"/>
-            <path d="M44 26C44 26 40 20 34 18" stroke="#081217" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-        </div>
-        <div>
-          <div class="sitename">Olive & Ember</div>
-          <div class="tag">Seasonal Small Plates • Artisan Cocktails</div>
-        </div>
-      </a>
 
-      <nav aria-label="Main navigation">
-        <a href="#menu" class="anchor">Menu</a>
-        <a href="#gallery" class="anchor">Gallery</a>
-        <a href="#about" class="anchor">About</a>
-        <a href="#contact" class="anchor">Contact</a>
-      </nav>
+<canvas id="canvas"></canvas>
 
-      <div style="display:flex;gap:12px;align-items:center">
-        <div class="phone">Call: (555) 321-9876</div>
-        <button class="cta" onclick="document.getElementById('reserve-form').scrollIntoView({behavior:'smooth'})">Reserve</button>
-        <button class="hamburger" id="hambtn" aria-expanded="false" aria-controls="mobileMenu">☰</button>
+<div class="page">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="crow-symbol">烏<span>.</span></div>
+    <p class="hero-line">karasu &nbsp;/&nbsp; crow</p>
+    <h1 class="hero-tagline">
+      hey bud.<br>
+      <em>wanna get some air?</em>
+    </h1>
+    <p class="scroll-hint">scroll</p>
+  </section>
+
+  <!-- VOICE PREVIEW -->
+  <section class="section">
+    <p class="section-label">what it sounds like</p>
+    <div class="chat-window" id="chatWindow">
+
+      <div class="bubble-row karasu" data-delay="0">
+        <div class="bubble">brooo you're actually awake 😭 it's 2pm</div>
       </div>
-    </header>
 
-    <!-- Mobile menu (hidden on desktop) -->
-    <div id="mobileMenu" style="display:none;margin-bottom:12px">
-      <div style="background:rgba(255,255,255,0.02);padding:12px;border-radius:12px">
-        <a href="#menu" class="anchor" style="display:block;padding:8px 0;color:var(--muted)">Menu</a>
-        <a href="#gallery" class="anchor" style="display:block;padding:8px 0;color:var(--muted)">Gallery</a>
-        <a href="#about" class="anchor" style="display:block;padding:8px 0;color:var(--muted)">About</a>
-        <a href="#contact" class="anchor" style="display:block;padding:8px 0;color:var(--muted)">Contact</a>
+      <div class="bubble-row you" data-delay="180">
+        <div class="bubble">bro don't start 💀 I was gonna get up</div>
+      </div>
+
+      <div class="bubble-row karasu" data-delay="360">
+        <div class="bubble">lmaoo "was gonna" 😂 nah for real tho. how'd you sleep?</div>
+      </div>
+
+      <div class="bubble-row you" data-delay="540">
+        <div class="bubble">terrible. slept at 5am again</div>
+      </div>
+
+      <div class="bubble-row karasu" data-delay="720">
+        <div class="bubble">yeah that's on you bro and you know it 💀</div>
+      </div>
+
+      <div class="bubble-row karasu" data-delay="860">
+        <div class="bubble">aight listen. no lecture. one thing today. go outside. 10 mins. right now. I'll be here when you get back.</div>
+      </div>
+
+      <div class="bubble-row you" data-delay="1040">
+        <div class="bubble">that's it??</div>
+      </div>
+
+      <div class="bubble-row karasu" data-delay="1200">
+        <div class="bubble">that's it. go. stop texting me and go 😭</div>
+      </div>
+
+      <div class="chat-beat" data-delay="1380">— later that evening —</div>
+
+      <div class="bubble-row karasu" data-delay="1520">
+        <div class="bubble">you went?</div>
+      </div>
+
+      <div class="bubble-row you" data-delay="1680">
+        <div class="bubble">yeah. felt kinda good actually</div>
+      </div>
+
+      <div class="bubble-row karasu" data-delay="1840">
+        <div class="bubble">I know. now let's talk about tonight. no 5am this time.</div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- INNER SELF SECTION -->
+  <section class="inner-section">
+    <p class="section-label">this isn't a chat app</p>
+
+    <h2 class="inner-quote">
+      karasu is the part of you<br>
+      that <span>already knows</span> what you need to do.<br>
+      it just finally has a voice.
+    </h2>
+
+    <p class="inner-body">
+      most apps try to motivate you from the outside. karasu doesn't. it speaks like the inner you that's been watching you slip — calm, honest, never loud. not a coach. not an algorithm. the version of yourself that doesn't make excuses.
+    </p>
+
+    <div class="inner-grid">
+      <div class="inner-item">
+        <span class="num">not this</span>
+        <strong>a fitness app</strong>
+        <p>generic plans, fake streaks, zero real connection to where you actually are.</p>
+      </div>
+      <div class="inner-item">
+        <span class="num">not this</span>
+        <strong>a motivational bot</strong>
+        <p>"you got this! 🔥" — yeah okay. that stopped working a long time ago.</p>
+      </div>
+      <div class="inner-item">
+        <span class="num">this</span>
+        <strong>your inner self, talking</strong>
+        <p>the voice that's always been there. calm. a little harsh. for you, not for show.</p>
       </div>
     </div>
+  </section>
 
-    <!-- Hero -->
-    <section class="hero" id="top" aria-label="Main hero">
-      <div class="hero-card" role="region" aria-labelledby="heroTitle">
-        <span class="eyebrow">New seasonal tasting menu</span>
-        <h1 id="heroTitle">Where fire meets flavor — modern Mediterranean with a twist</h1>
-        <p class="lead">Locally sourced ingredients, small plates designed for sharing, and cocktails curated to complement every bite. Join us for dinner, weekend brunch, or a private tasting.</p>
+  <div class="divider"></div>
 
-        <div class="cta-row">
-          <button class="btn-hero" onclick="document.getElementById('reserve-form').scrollIntoView({behavior:'smooth'})">Reserve a table</button>
-          <button class="btn-secondary" onclick="alert('We\'ll call you to confirm — demo only')">Call & Reserve</button>
-        </div>
-
-        <div class="features" aria-hidden="true">
-          <div class="feat">Open Tue–Sun</div>
-          <div class="feat">Outdoor Patio</div>
-          <div class="feat">Private Events</div>
-        </div>
-
-        <!-- subtle decorative SVG -->
-        <svg viewBox="0 0 400 120" style="position:absolute;right:-40px;bottom:-30px;width:360px;opacity:0.08" aria-hidden="true">
-          <defs>
-            <linearGradient id="g1" x1="0" x2="1">
-              <stop offset="0" stop-color="#FF7A59"/>
-              <stop offset="1" stop-color="#E9B44C"/>
-            </linearGradient>
-          </defs>
-          <path d="M0 80 C90 20 310 20 400 80 L400 140 L0 140 Z" fill="url(#g1)"></path>
-        </svg>
+  <!-- WHAT IS THIS -->
+  <section class="section">
+    <p class="section-label">how it works</p>
+    <div class="what-grid">
+      <div class="what-item">
+        <span class="icon">🌬️</span>
+        <h3>fresh air first</h3>
+        <p>starts warm. no judgment. gets you moving before it gets real.</p>
       </div>
-
-      <aside class="reserve" aria-labelledby="reserveTitle">
-        <h3 id="reserveTitle">Book a table</h3>
-        <form id="reserve-form" onsubmit="return handleReserve(event)" novalidate>
-          <div class="form-grid">
-            <input type="text" name="name" placeholder="Your name" required aria-label="Your name">
-            <input type="tel" name="phone" placeholder="Phone number" required aria-label="Phone number">
-          </div>
-          <div class="form-grid">
-            <input type="date" name="date" required aria-label="Reservation date">
-            <select name="time" required aria-label="Reservation time">
-              <option value="">Select time</option>
-              <option>17:00</option>
-              <option>18:00</option>
-              <option>19:00</option>
-              <option>20:00</option>
-            </select>
-          </div>
-          <div style="margin-bottom:8px">
-            <select name="party" required aria-label="Party size">
-              <option value="">Party size</option>
-              <option>1</option><option>2</option><option>3</option><option>4</option><option>5+</option>
-            </select>
-          </div>
-          <button type="submit" class="res-btn">Request Reservation</button>
-          <div style="font-size:13px;color:var(--muted);margin-top:10px">We will call to confirm — demo submission only.</div>
-        </form>
-      </aside>
-    </section>
-
-    <!-- Menu -->
-    <section class="section" id="menu" aria-label="Menu">
-      <h2 style="margin:0 0 12px">Chef's picks</h2>
-      <p style="margin:0 0 18px;color:var(--muted)">A rotating selection of small plates, crafted to share and enjoy with friends.</p>
-
-      <div class="cards" role="list">
-        <article class="dish" role="listitem">
-          <div class="thumb" aria-hidden="true">
-            <!-- stylized plate -->
-            <svg width="72" height="54" viewBox="0 0 72 54" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <rect width="72" height="54" rx="10" fill="white" opacity="0.08"/>
-              <circle cx="34" cy="26" r="16" fill="#081217" opacity="0.25"/>
-            </svg>
-          </div>
-          <div>
-            <h4>Charred Octopus</h4>
-            <p>Smoked paprika, lemon oil, charred fingerling potatoes.</p>
-          </div>
-          <div class="price">$18</div>
-        </article>
-
-        <article class="dish" role="listitem">
-          <div class="thumb" aria-hidden="true" style="background:linear-gradient(135deg,#6BFF9B,#6BC1FF);">
-            <svg width="72" height="54" viewBox="0 0 72 54"><rect width="72" height="54" rx="10" fill="white" opacity="0.06"/></svg>
-          </div>
-          <div>
-            <h4>Heirloom Tomato Salad</h4>
-            <p>Burrata, basil oil, toasted seeds, 10-year balsamic.</p>
-          </div>
-          <div class="price">$14</div>
-        </article>
-
-        <article class="dish" role="listitem">
-          <div class="thumb" aria-hidden="true" style="background:linear-gradient(135deg,#FFD36B,#FF8B6B);">
-            <svg width="72" height="54" viewBox="0 0 72 54"><rect width="72" height="54" rx="10" fill="white" opacity="0.06"/></svg>
-          </div>
-          <div>
-            <h4>Wood-Grilled Lamb Skewers</h4>
-            <p>Za'atar glaze, tzatziki, roasted lemon.</p>
-          </div>
-          <div class="price">$22</div>
-        </article>
-
-        <article class="dish" role="listitem">
-          <div class="thumb" aria-hidden="true" style="background:linear-gradient(135deg,#C084FC,#60A5FA);">
-            <svg width="72" height="54" viewBox="0 0 72 54"><rect width="72" height="54" rx="10" fill="white" opacity="0.06"/></svg>
-          </div>
-          <div>
-            <h4>Roasted Forest Mushrooms</h4>
-            <p>Garlic butter, thyme, sourdough croutons.</p>
-          </div>
-          <div class="price">$15</div>
-        </article>
+      <div class="what-item">
+        <span class="icon">🔥</span>
+        <h3>then the truth</h3>
+        <p>calm. direct. no excuses accepted. the voice you actually need to hear.</p>
       </div>
-    </section>
-
-    <!-- Gallery -->
-    <section class="section" id="gallery" aria-label="Gallery">
-      <h2 style="margin:0 0 12px">Gallery</h2>
-      <p style="margin:0 0 12px;color:var(--muted)">A glimpse at our space, plates and gatherings.</p>
-
-      <div class="gallery" role="list" aria-label="Gallery images">
-        <div class="gcard" role="listitem" style="background:linear-gradient(135deg,#FF9B6B,#FF6B9B)">
-          <div class="overlay"><strong>Open fire</strong></div>
-        </div>
-        <div class="gcard small" role="listitem" style="background:linear-gradient(135deg,#6BC1FF,#9BFFEF)">
-          <div class="overlay"><strong>Brunch</strong></div>
-        </div>
-        <div class="gcard" role="listitem" style="background:linear-gradient(135deg,#A78BFA,#60A5FA)">
-          <div class="overlay"><strong>Plating</strong></div>
-        </div>
-        <div class="gcard small" role="listitem" style="background:linear-gradient(135deg,#FFDF7A,#FF8BA3)">
-          <div class="overlay"><strong>Cocktails</strong></div>
-        </div>
-        <div class="gcard" role="listitem" style="background:linear-gradient(135deg,#7EE787,#00C2A0)">
-          <div class="overlay"><strong>Patio</strong></div>
-        </div>
-        <div class="gcard" role="listitem" style="background:linear-gradient(135deg,#FFD36B,#FF9B6B)">
-          <div class="overlay"><strong>Chef's Table</strong></div>
-        </div>
+      <div class="what-item">
+        <span class="icon">🏠</span>
+        <h3>then home</h3>
+        <p>body, food, sleep. one thing at a time. no overwhelm. just the next step.</p>
       </div>
-    </section>
+    </div>
+  </section>
 
-    <!-- About & Testimonials -->
-    <section class="section" id="about" aria-label="About">
-      <div style="display:grid;grid-template-columns:2fr 1fr;gap:16px;align-items:start">
-        <div>
-          <h2 style="margin:0 0 10px">About Olive & Ember</h2>
-          <p style="color:var(--muted)">Founded on summer nights and open flames, Olive & Ember brings a modern Mediterranean approach to seasonal cooking. We partner with local farms, sustainable fisheries and independent producers to craft dishes that are simple, vibrant and full of character.</p>
-          <ul style="color:var(--muted);margin-top:12px">
-            <li>Carefully curated wine list and cocktail program</li>
-            <li>Seasonal tasting menus and private dining</li>
-            <li>Outdoor seating and heated patio in cooler months</li>
-          </ul>
-        </div>
+  <div class="divider"></div>
 
-        <aside>
-          <h3 style="margin-top:0">What guests say</h3>
-          <div class="testimonials">
-            <div class="review">
-              <div class="rating">★★★★★</div>
-              <p style="margin:8px 0 0;color:var(--muted)">"Amazing flavors and warm service. The tasting menu was a dream."</p>
-            </div>
-            <div class="review">
-              <div class="rating">★★★★☆</div>
-              <p style="margin:8px 0 0;color:var(--muted)">"Cozy patio and inventive cocktails — a perfect date spot."</p>
-            </div>
-          </div>
-        </aside>
-      </div>
-    </section>
+  <!-- WAITLIST -->
+  <section class="waitlist-section">
+    <h2 class="waitlist-heading">you already know something needs to change.</h2>
+    <p class="waitlist-sub">karasu is coming. drop your email and you'll be the first to know.</p>
 
-    <!-- Contact -->
-    <section class="section" id="contact" aria-label="Contact">
-      <div style="display:grid;grid-template-columns:1fr 360px;gap:16px;align-items:start">
-        <div>
-          <h2 style="margin:0 0 8px">Visit & Contact</h2>
-          <p style="color:var(--muted);margin:0 0 12px">123 Ember Lane, Harbor City • Tue–Sun 11:30am–10pm</p>
-          <p style="color:var(--muted);margin:0 0 16px">For private events, email events@oliveandember.example (demo).</p>
+    <div class="waitlist-form" id="waitlistForm">
+      <input type="email" id="emailInput" placeholder="your email" autocomplete="email" />
+      <button onclick="handleSubmit()">i'm in</button>
+      <p class="waitlist-note">no spam. just karasu, when it's ready.</p>
+    </div>
 
-          <div style="background:rgba(255,255,255,0.02);padding:12px;border-radius:12px;color:var(--muted)">
-            <strong>Hours</strong>
-            <div style="margin-top:6px;font-size:14px">Tue–Fri 11:30–22:00 • Sat–Sun Brunch 10:00–14:00</div>
-          </div>
-        </div>
+    <div class="success-msg" id="successMsg">
+      karasu sees you.<br>
+      we'll be in touch. go drink some water.
+    </div>
+  </section>
 
-        <div style="background:rgba(255,255,255,0.02);padding:12px;border-radius:12px">
-          <h4 style="margin:0 0 10px">Quick message</h4>
-          <form id="contactForm" onsubmit="return handleContact(event)" novalidate>
-            <input name="cname" placeholder="Name" style="margin-bottom:8px" required>
-            <input name="cemail" placeholder="Email" style="margin-bottom:8px" required type="email">
-            <textarea name="cmsg" placeholder="Message" rows="4" style="width:100%;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit" required></textarea>
-            <div style="margin-top:8px"><button class="res-btn" type="submit">Send</button></div>
-          </form>
-        </div>
-      </div>
-    </section>
+  <footer>
+    <span class="logo">karasu</span>
+    <p>© 2025 karasu. built for the ones ready to come back.</p>
+  </footer>
 
-    <!-- Footer -->
-    <footer>
-      <div>
-        <div style="font-weight:700">Olive & Ember</div>
-        <div style="color:var(--muted);font-size:13px">© <span id="year"></span> Olive & Ember — All rights reserved</div>
-      </div>
-      <div style="display:flex;gap:16px;align-items:center">
-        <div class="social">
-          <a href="#" aria-label="Instagram">IG</a>
-          <a href="#" aria-label="Facebook">FB</a>
-          <a href="#" aria-label="Twitter">TW</a>
-        </div>
-        <div style="color:var(--muted);font-size:13px">Made with care • Demo landing</div>
-      </div>
-    </footer>
-  </div>
+</div>
 
-  <script>
-    // set year
-    document.getElementById('year').textContent = new Date().getFullYear();
+<script>
+  const canvas = document.getElementById('canvas');
+  const ctx = canvas.getContext('2d');
 
-    // mobile menu toggle
-    const ham = document.getElementById('hambtn');
-    const mm = document.getElementById('mobileMenu');
-    ham && ham.addEventListener('click', () => {
-      const open = mm.style.display === 'block';
-      mm.style.display = open ? 'none' : 'block';
-      ham.setAttribute('aria-expanded', String(!open));
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  const drops = Array.from({ length: 160 }, () => ({
+    x: Math.random() * window.innerWidth,
+    y: Math.random() * window.innerHeight,
+    speed: 0.5 + Math.random() * 1.4,
+    length: 10 + Math.random() * 24,
+    opacity: 0.12 + Math.random() * 0.18,
+  }));
+
+  function drawRain() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    drops.forEach(d => {
+      ctx.beginPath();
+      ctx.moveTo(d.x, d.y);
+      ctx.lineTo(d.x - 1, d.y + d.length);
+      ctx.strokeStyle = `rgba(200,190,175,${d.opacity})`;
+      ctx.lineWidth = 0.9;
+      ctx.stroke();
+      d.y += d.speed;
+      if (d.y > canvas.height + 30) {
+        d.y = -30;
+        d.x = Math.random() * canvas.width;
+      }
     });
+    requestAnimationFrame(drawRain);
+  }
+  drawRain();
 
-    // Smooth anchor links for in-page nav
-    document.querySelectorAll('a.anchor').forEach(a=>{
-      a.addEventListener('click', (e)=>{
-        // default anchor behavior ok if href used; ensure smooth
-        e.preventDefault();
-        const tgt = document.querySelector(a.getAttribute('href'));
-        if(tgt) tgt.scrollIntoView({behavior:'smooth'});
-      });
+  const rows = document.querySelectorAll('.bubble-row, .chat-beat');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const delay = parseInt(entry.target.dataset.delay || 0);
+        setTimeout(() => entry.target.classList.add('visible'), delay);
+        observer.unobserve(entry.target);
+      }
     });
+  }, { threshold: 0.2 });
+  rows.forEach(r => observer.observe(r));
 
-    // Reservation demo handler
-    function handleReserve(e){
-      e.preventDefault();
-      const f = e.target;
-      const name = f.name.value.trim();
-      if(!name){ alert('Please enter name'); return false; }
-      // demo confirmation
-      alert('Thanks ' + name + '! We received your reservation request. We will call to confirm (demo).');
-      f.reset();
-      return false;
+  function handleSubmit() {
+    const email = document.getElementById('emailInput').value.trim();
+    if (!email || !email.includes('@')) {
+      document.getElementById('emailInput').focus();
+      return;
     }
+    document.getElementById('waitlistForm').style.display = 'none';
+    document.getElementById('successMsg').style.display = 'block';
+  }
 
-    // Contact demo handler
-    function handleContact(e){
-      e.preventDefault();
-      const f = e.target;
-      alert('Thanks ' + (f.cname?.value || '') + '! We received your message (demo).');
-      f.reset();
-      return false;
-    }
-  </script>
+  document.getElementById('emailInput').addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') handleSubmit();
+  });
+</script>
+
 </body>
 </html>
