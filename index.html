@@ -17,8 +17,8 @@
       --mist: #888;
       --pale: #bbb;
       --white: #f0ede8;
-      --red: #8b1a1a;
-      --red-soft: #a52929;
+      --red: #1a3a5c;
+      --red-soft: #1e5799;
     }
 
     html, body {
@@ -268,14 +268,14 @@
 
     .bbl.u {
       background: var(--red);
-      color: #f0e0e0;
+      color: #e0eaf5;
       border-bottom-right-radius: 4px;
     }
 
     .bbl.shift {
-      background: #120808;
-      color: #c09090;
-      border: 1px solid rgba(139,26,26,0.2);
+      background: #080e18;
+      color: #90a8c0;
+      border: 1px solid rgba(26,87,153,0.2);
       border-bottom-left-radius: 4px;
     }
 
@@ -353,7 +353,7 @@
     }
 
     .fl-dot.on { background: var(--red); }
-    .fl-dot.now { background: var(--red-soft); box-shadow: 0 0 8px rgba(165,41,41,0.5); }
+    .fl-dot.now { background: var(--red-soft); box-shadow: 0 0 8px rgba(30,87,153,0.5); }
 
     .fl-goal {
       display: flex;
@@ -597,7 +597,7 @@
 
   <!-- HERO -->
   <section class="hero">
-    <div class="crow-symbol">烏<span>.</span></div>
+    <div class="crow-symbol"><img src="logo.png" alt="karasu crow logo" style="width:clamp(80px,14vw,160px);height:auto;opacity:0.95;" /><span style="display:none">.</span></div>
     <p class="hero-sub-label">karasu &nbsp;/&nbsp; crow</p>
     <h1 class="hero-tagline">
       you know the cycle.<br>
@@ -903,7 +903,7 @@
       ctx.beginPath();
       ctx.moveTo(d.x, d.y);
       ctx.lineTo(d.x - 1, d.y + d.length);
-      ctx.strokeStyle = `rgba(200,190,175,${d.opacity})`;
+      ctx.strokeStyle = `rgba(100,160,220,${d.opacity})`;
       ctx.lineWidth = 0.9;
       ctx.stroke();
       d.y += d.speed;
